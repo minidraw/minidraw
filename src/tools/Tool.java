@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JComponent;
+
 /**
  * Generic parent class for a MiniDraw Tool.
  * 
@@ -17,6 +19,7 @@ import java.awt.event.MouseMotionListener;
 public abstract class Tool implements MouseListener, 
                                       MouseMotionListener, 
                                       KeyListener
+                            
 {
   
   @Override

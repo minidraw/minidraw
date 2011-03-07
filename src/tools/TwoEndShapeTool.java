@@ -115,6 +115,7 @@ public class TwoEndShapeTool extends Tool {
                startingMousePosition.y,
                e.getPoint().x, 
                e.getPoint().y);
-    canvas.repaint();   
+    canvas.addShape(shape);
+    canvas.repaint();
   }
 }// end public class TwoEndShapeTool extends Tool

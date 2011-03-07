@@ -2,6 +2,8 @@ package tools.shapes;
 
 import java.awt.Graphics;
 
+import util.Bounds;
+
 /**
  * Defines the drawing behavior for drawing an oval.
  */
@@ -43,7 +45,8 @@ public class OvalShape extends TwoEndShape {
       shapeHeight = (y0-y1)+1;
     }
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
-  }
+    bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+}
   
   /* (non-Javadoc)
    * 
@@ -75,4 +78,5 @@ public class OvalShape extends TwoEndShape {
     }
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
   }
+
 }// end public class OvalShape extends Tool

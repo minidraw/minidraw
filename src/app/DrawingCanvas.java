@@ -1,6 +1,8 @@
 package app;
 
+import tools.ShapeList;
 import tools.Tool;
+import tools.shapes.Shape;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -32,6 +34,7 @@ public class DrawingCanvas extends JComponent {
   protected int canvasHeight;
   protected Color penColor = Color.black;
   protected Tool currentTool;
+  protected ShapeList drawnObjects;
     
   /****< Constructor >*********************************************************/
   /**
@@ -41,6 +44,7 @@ public class DrawingCanvas extends JComponent {
     setBackground( BACKGROUND );
     DCcontroller = createDrawingCanvasController();
     addDrawingCanvasListener(DCcontroller);
+    drawnObjects = new ShapeList();
   }
   
   /****< Factory Methods >*****************************************************/
@@ -159,5 +163,13 @@ public class DrawingCanvas extends JComponent {
     repaint();
     canvasWidth = width;
     canvasHeight = height;
+  }
+  
+  public Shape objectAt(int x, int y){
+	  return drawnObjects.search(x, y);
+  }
+  
+  public void addShape(Shape shape){
+	  drawnObjects.add(shape);
   }
 }// end public class DrawingCanvas extends JComponent

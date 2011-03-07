@@ -10,7 +10,7 @@ import java.awt.Graphics;
  * TwoEndedShape is defined by both the draw and drawOutline methods which are
  * explained below.
  */
-public abstract class TwoEndShape {
+public abstract class TwoEndShape extends Shape{
 
   /**
    * Facilitates drawing the TwoEndShape on screen.
