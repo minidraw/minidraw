@@ -36,4 +36,9 @@ public class Bounds {
 	public Rectangle getBounds(){
 		return bounds;
 	}
+
+	public void update(int x, int y, int width, int height) {
+		bounds = new Rectangle(x, y, width, height);
+		
+	}
 }

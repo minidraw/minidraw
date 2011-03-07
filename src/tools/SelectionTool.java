@@ -24,6 +24,9 @@ public class SelectionTool extends Tool {
 		if ( selectedShape != null ){
 			selectedShape.select(iBGraphics);
 		}
+		else{
+			
+		}
 		canvas.repaint();
 	}
 }

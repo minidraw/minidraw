@@ -128,35 +128,35 @@ public class MiniDraw4 extends JApplet  {
 
     actions.add(
       new ToolController("Freehand",
-  	                     getImageIcon("/freehand.jpg"),
+  	                     getImageIcon("freehand.jpg"),
   	                     "freehand drawing tool",
   	                     canvas,
   	                     new FreehandTool(canvas)));
 
     actions.add(
   		new ToolController("Line",
-  		getImageIcon("/line.jpg"),
+  		getImageIcon("line.jpg"),
   		"Line drawing tool",
   		canvas,
   		new TwoEndShapeTool(canvas, new LineShape())));
   
     actions.add(
   		new ToolController("Rectangle",
-  		getImageIcon("/rectangle.jpg"),
+  		getImageIcon("rectangle.jpg"),
   		"Rectangle drawing tool",
   		canvas,
   		new TwoEndShapeTool(canvas, new RectangleShape())));
   		
     actions.add(
   	    new ToolController("Oval",
-  	    getImageIcon("/oval.jpg"),
+  	    getImageIcon("oval.jpg"),
   		"Oval drawing tool",
   		canvas,
   		new TwoEndShapeTool(canvas, new OvalShape())));
 
     actions.add(
   		new ToolController("Text",
-  		getImageIcon("/text.jpg"),
+  		getImageIcon("text.jpg"),
   		"text drawing tool",
         canvas,
   		new TextTool(canvas)));		
@@ -168,7 +168,7 @@ public class MiniDraw4 extends JApplet  {
   		new EraserTool(canvas)));
     actions.add(
 		new ToolController("Select",
-		getImageIcon("/select.gif"),
+		getImageIcon("select.gif"),
 		"Select shapes tool",
 		canvas,
 		new SelectionTool(canvas)));
