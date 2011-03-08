@@ -21,7 +21,6 @@ public abstract class TwoEndShape extends Shape{
    * @param x1 ending x coordinate
    * @param y1 ending y coordinate
    */
-  abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
   
   /**
    * Facilitates drawing an outline as the user drags the mouse.
