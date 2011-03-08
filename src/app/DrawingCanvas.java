@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Vector;
 
 import javax.swing.JComponent;
 
@@ -166,7 +165,7 @@ public class DrawingCanvas extends JComponent {
 		canvasHeight = height;
 	}
 
-	public Vector<Shape> objectAt(int x, int y){
+	public Shape objectAt(int x, int y){
 		return drawnObjects.search(x, y);
 	}
 
