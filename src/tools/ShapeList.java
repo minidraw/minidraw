@@ -3,6 +3,7 @@ package tools;
 import java.util.Vector;
 
 import tools.shapes.Shape;
+import util.Bounds;
 
 @SuppressWarnings("serial")
 public class ShapeList extends Vector<Shape>{
@@ -32,8 +33,8 @@ public class ShapeList extends Vector<Shape>{
 		
 		// If there are more than one shapes being selected, then we want to only chose the 
 		// shape that has smaller area, since it is chanced that one is inside the other/
-		if ( shapes.size() > 1 ){
-			
+		if ( shapes.size() > 0 ){
+			foundShape = Bounds.resolveMultipleSelect(shapes);
 		}
 		return foundShape;
 	}

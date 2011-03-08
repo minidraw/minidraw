@@ -1,8 +1,11 @@
 package util;
 
 import java.awt.Rectangle;
+import java.util.Vector;
 
-public class Bounds {
+import tools.shapes.Shape;
+
+public class Bounds{
 	private Rectangle bounds;
 	
 	public boolean contains(int x, int y){
@@ -12,7 +15,7 @@ public class Bounds {
 			return false;
 		}
 	}
-	
+
 	public int getX(){
 		return bounds.x;
 	}
@@ -35,5 +38,20 @@ public class Bounds {
 
 	public void update(int x, int y, int width, int height) {
 		bounds = new Rectangle(x, y, width, height);
+	}
+	
+	public static Shape resolveMultipleSelect(Vector<Shape> shapes){
+		Shape bestFit = shapes.firstElement();
+		for ( Shape shape : shapes ){
+			if ( shape.getBounds().getBounds().intersects(bestFit.getBounds().getBounds()) 
+					&& shape.getBounds().area() < bestFit.getBounds().area() ){
+				bestFit = shape;
+			}
+		}
+		return bestFit;
+	}
+	
+	public int area(){
+		return bounds.height * bounds.width;
 	}
 }
