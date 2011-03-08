@@ -40,6 +40,14 @@ public class Bounds{
 		bounds = new Rectangle(x, y, width, height);
 	}
 	
+	/**
+	 * In order to have nested objects on the screen, we must be able to resolve
+	 * a conflict in which object has been selected. In order to do this we must
+	 * first determine if the objects are indeed intersecting, if so then we take the object
+	 * with the smaller area, since that is the most probable object desired to be selected.
+	 * @param shapes Vector of shapes to choose from.
+	 * @return Shape the most fitting guess
+	 */
 	public static Shape resolveMultipleSelect(Vector<Shape> shapes){
 		Shape bestFit = shapes.firstElement();
 		for ( Shape shape : shapes ){
