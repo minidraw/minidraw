@@ -20,15 +20,21 @@ public class ShapeList extends Vector<Shape>{
 		return false;
 	}
 	
-	public Vector<Shape> search(int x, int y){
+	public Shape search(int x, int y){
 		Vector<Shape> shapes = new Vector<Shape>();
+		Shape foundShape = null;
+		
 		for ( Shape shape : list ){
 			if ( shape.getBounds().contains(x, y) ){
-				if ( !shape.isSelected() ){
-					shapes.add(shape);
-				}
+				shapes.add(shape);
 			}
 		}
-		return shapes;
+		
+		// If there are more than one shapes being selected, then we want to only chose the 
+		// shape that has smaller area, since it is chanced that one is inside the other/
+		if ( shapes.size() > 1 ){
+			
+		}
+		return foundShape;
 	}
 }
