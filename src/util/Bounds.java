@@ -51,6 +51,16 @@ public class Bounds{
 		return bestFit;
 	}
 	
+	public static Vector<Shape> resolveIntersectingRedraw(Shape s, Vector<Shape> shapes){
+		Vector<Shape> intersecting = null;
+		for ( Shape shape : shapes ){
+			if ( s.getBounds().getBounds().intersects(shape.getBounds().getBounds())){
+				intersecting.add(shape);
+			}
+		}
+		return intersecting;
+	}
+	
 	public int area(){
 		return bounds.height * bounds.width;
 	}

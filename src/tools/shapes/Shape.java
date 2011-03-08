@@ -35,8 +35,12 @@ public abstract class Shape {
 			 g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
 			 g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
 		 } else {
+			// if(){
+				 
+			 //}
 			 g.clearRect(bounds.getX()-1, bounds.getY()-1, bounds.getWidth()+4, bounds.getHeight()+4);
 			 this.draw(g,bounds.getX(), bounds.getY(),bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1);
+			 
 		 }
 	 }
 

@@ -166,7 +166,7 @@ public class DrawingCanvas extends JComponent {
 		canvasHeight = height;
 	}
 
-	public Vector<Shape> objectAt(int x, int y){
+	public Shape objectAt(int x, int y){
 		return drawnObjects.search(x, y);
 	}
 

@@ -13,16 +13,6 @@ import java.awt.Graphics;
 public abstract class TwoEndShape extends Shape{
 
   /**
-   * Facilitates drawing the TwoEndShape on screen.
-   * 
-   * @param g Graphics context to use
-   * @param x0 starting x coordinate
-   * @param y0 starting y coordinate
-   * @param x1 ending x coordinate
-   * @param y1 ending y coordinate
-   */
-  
-  /**
    * Facilitates drawing an outline as the user drags the mouse.
    * 
    * @param g Graphics context to use
