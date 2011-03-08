@@ -170,6 +170,12 @@ public class DrawingCanvas extends JComponent {
 	  return drawnObjects.search(x, y);
   }
   
+  public void deselectAll(){
+	  for ( Shape shape : drawnObjects ) {
+		  shape.deselect();
+	  }
+  }
+  
   public void addShape(Shape shape){
 	  drawnObjects.add(shape);
   }

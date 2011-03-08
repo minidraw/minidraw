@@ -21,6 +21,10 @@ public abstract class Shape {
 		return selected;
 	}
 	
+	public void deselect(){
+		selected = false;
+	}
+	
 	 public void select(Graphics g){
 		 selected = !selected;
 		 

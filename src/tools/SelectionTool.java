@@ -28,7 +28,7 @@ public class SelectionTool extends Tool {
 			}
 		}
 		else{
-			
+			canvas.deselectAll();
 		}
 		canvas.repaint();
 	}

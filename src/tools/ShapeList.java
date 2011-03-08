@@ -4,17 +4,20 @@ import java.util.Vector;
 
 import tools.shapes.Shape;
 
-public class ShapeList {
+@SuppressWarnings("serial")
+public class ShapeList extends Vector<Shape>{
 	private Vector<Shape> list;
 	
 	public ShapeList(){
 		list = new Vector<Shape>();
 	}
 	
-	public void add(Shape shape){
+	public boolean add(Shape shape){
 		if ( shape != null ){
 			list.add(shape);
+			return true;
 		}
+		return false;
 	}
 	
 	public Vector<Shape> search(int x, int y){
