@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import app.DrawingCanvas;
@@ -36,14 +37,16 @@ public abstract class Shape {
 		selected = !selected;
 
 		if ( selected ){
-			g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth(), bounds.getHeight());
+			g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth()+1, bounds.getHeight()+1);
 			g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
 			g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
 			g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
 			g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
 		} else {
-			g.clearRect(bounds.getX()-1, bounds.getY()-1, bounds.getWidth()+4, bounds.getHeight()+4);
-			draw(g,bounds.getX(), bounds.getY(),bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1);
+			//g.clearRect(bounds.getX()-1, bounds.getY()-1, bounds.getWidth()+4, bounds.getHeight()+4);
+			g.setColor(Color.WHITE);
+			g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth()+1, bounds.getHeight()+1);
+			//draw(g,bounds.getX(), bounds.getY(),bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1);
 		}
 	}
 
