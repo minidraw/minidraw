@@ -1,8 +1,14 @@
 package app;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+import javax.swing.JApplet;
+import javax.swing.JFrame;
 
 import tools.EraserTool;
 import tools.FreehandTool;
@@ -10,11 +16,6 @@ import tools.SelectionTool;
 import tools.TextTool;
 import tools.ToolList;
 import tools.TwoEndShapeTool;
-import tools.shapes.LineShape;
-import tools.shapes.OvalShape;
-import tools.shapes.RectangleShape;
-
-import java.net.*;
 
 /**
  * Represents the MiniDraw program and can be initialized as either an

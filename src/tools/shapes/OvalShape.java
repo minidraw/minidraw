@@ -2,8 +2,6 @@ package tools.shapes;
 
 import java.awt.Graphics;
 
-import util.Bounds;
-
 /**
  * Defines the drawing behavior for drawing an oval.
  */

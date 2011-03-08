@@ -28,4 +28,8 @@ public class ShapeList {
 		}
 		return shapes;
 	}
+
+	public void removeAll() {
+		
+	}
 }

@@ -26,151 +26,155 @@ import javax.swing.JComponent;
 @SuppressWarnings("serial")
 public class DrawingCanvas extends JComponent {
 
-  /* Class member variables */
-  public final Color BACKGROUND = Color.white;
-  protected DrawingCanvasController DCcontroller;
-  protected Image imageBuffer;
-  protected Graphics imageBufferGraphics;
-  protected int canvasWidth;
-  protected int canvasHeight;
-  protected Color penColor = Color.black;
-  protected Tool currentTool;
-  protected ShapeList drawnObjects;
-    
-  /****< Constructor >*********************************************************/
-  /**
-   * Creates a default DrawingCanvas with a white background
-   */
-  public DrawingCanvas() {
-    setBackground( BACKGROUND );
-    DCcontroller = createDrawingCanvasController();
-    addDrawingCanvasListener(DCcontroller);
-    drawnObjects = new ShapeList();
-  }
-  
-  /****< Factory Methods >*****************************************************/
-  
-  protected DrawingCanvasController createDrawingCanvasController() {
-      return new DrawingCanvasController(this);
-  }
+	/* Class member variables */
+	public final Color BACKGROUND = Color.white;
+	protected DrawingCanvasController DCcontroller;
+	protected Image imageBuffer;
+	protected Graphics imageBufferGraphics;
+	protected int canvasWidth;
+	protected int canvasHeight;
+	protected Color penColor = Color.black;
+	protected Tool currentTool;
+	protected ShapeList drawnObjects;
 
-  /****< Listener Register Methods >*******************************************/
-  protected void addDrawingCanvasListener(DrawingCanvasController listener) {
-    if( listener != null ) {
-      addMouseListener((MouseListener) listener);
-      addMouseMotionListener((MouseMotionListener) listener);
-      addKeyListener((KeyListener) listener );
-    }
-  }
-   
-  /****< Drawing Methods >*****************************************************/
-  /* (non-Javadoc)
-   * @see javax.swing.JComponent#update(java.awt.Graphics)
-   */
-  public void update(Graphics g){
-     paint(g);
-  }
-  
-  /* (non-Javadoc)
-   * 
-   * Painting the DrawingCanvas is simply displaying the contents of the
-   * imageBuffer.
-   * 
-   * @see javax.swing.JComponent#paint(java.awt.Graphics)
-   */
-  public void paint(Graphics g) {
-     g.drawImage(imageBuffer,0, 0, this);
-  }
-  
-  
-  /**
-   * Paints over the drawing canvas in the background color
-   */
-  public void clearCanvas() {
-	imageBufferGraphics.setColor(BACKGROUND);
-	imageBufferGraphics.fillRect(0, 0, canvasWidth, canvasHeight);
-	imageBufferGraphics.setColor(penColor);
-	repaint();
-  }
-  
-  /****< Accessor and Update Methods >*****************************************/
-  
-  /**
-   * Updates the current drawing color
-   * 
-   * @param c new drawing color
-   */
-  public void setpenColor(Color c) {
-	  if( c != null ) {	
-        penColor = c;
-        imageBufferGraphics.setColor(c);
-	  }
-  }
-    
-  /**
-   * Accessor method for current drawing color
-   * 
-   * @return current drawing color
-   */
-  public Color getpenColor() {
-    return penColor;
-  }
-  
-  /**
-   * Updates current drawing tool
-   * 
-   * @param t new drawing tool
-   */
-  public void setcurrentTool(Tool t)  {
-	if( t != null )
-      currentTool = t;
-  }
-  
-  /**
-   * Accessor method for current drawing tool
-   * 
-   * @return current drawing tool
-   */
-  public Tool getcurrentTool() {
-    return currentTool;
-  }
-  
-  /**
-   * Accessor method for imageBuffer
-   * 
-   * @return current image buffer graphics context
-   */
-  public Graphics getimageBufferGraphics() {
-    return imageBufferGraphics;
-  }
-  
-  
-  /* (non-Javadoc)
-   * 
-   * Adjusts the size of the DrawingCanvas as well as the imageBuffer to match
-   * the new DrawingCanvas size.
-   * 
-   * @see java.awt.Component#setBounds(int, int, int, int)
-   */
-  public void setBounds(int x, int y, int width, int height) {
-    Image newimageBuffer = createImage(width, height);
-    imageBufferGraphics = newimageBuffer.getGraphics();
-    if (imageBuffer != null) {
-      imageBufferGraphics.drawImage(imageBuffer, 0, 0 ,this);
-    }
-    imageBuffer = newimageBuffer;
-    setpenColor(penColor);
-    super.setBounds(x, y, width, height);
-    repaint();
-    canvasWidth = width;
-    canvasHeight = height;
-  }
-  
-  public Vector<Shape> objectAt(int x, int y){
-	  return drawnObjects.search(x, y);
-  }
-  
-  public void addShape(Shape shape){
-	  drawnObjects.add(shape);
-  }
+	/****< Constructor >*********************************************************/
+	/**
+	 * Creates a default DrawingCanvas with a white background
+	 */
+	public DrawingCanvas() {
+		setBackground( BACKGROUND );
+		DCcontroller = createDrawingCanvasController();
+		addDrawingCanvasListener(DCcontroller);
+		drawnObjects = new ShapeList();
+	}
+
+	/****< Factory Methods >*****************************************************/
+
+	protected DrawingCanvasController createDrawingCanvasController() {
+		return new DrawingCanvasController(this);
+	}
+
+	/****< Listener Register Methods >*******************************************/
+	protected void addDrawingCanvasListener(DrawingCanvasController listener) {
+		if( listener != null ) {
+			addMouseListener((MouseListener) listener);
+			addMouseMotionListener((MouseMotionListener) listener);
+			addKeyListener((KeyListener) listener );
+		}
+	}
+
+	/****< Drawing Methods >*****************************************************/
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#update(java.awt.Graphics)
+	 */
+	public void update(Graphics g){
+		paint(g);
+	}
+
+	/* (non-Javadoc)
+	 * 
+	 * Painting the DrawingCanvas is simply displaying the contents of the
+	 * imageBuffer.
+	 * 
+	 * @see javax.swing.JComponent#paint(java.awt.Graphics)
+	 */
+	public void paint(Graphics g) {
+		g.drawImage(imageBuffer,0, 0, this);
+	}
+
+
+	/**
+	 * Paints over the drawing canvas in the background color
+	 */
+	public void clearCanvas() {
+		imageBufferGraphics.setColor(BACKGROUND);
+		imageBufferGraphics.fillRect(0, 0, canvasWidth, canvasHeight);
+		imageBufferGraphics.setColor(penColor);
+		repaint();
+	}
+
+	/****< Accessor and Update Methods >*****************************************/
+
+	/**
+	 * Updates the current drawing color
+	 * 
+	 * @param c new drawing color
+	 */
+	public void setpenColor(Color c) {
+		if( c != null ) {	
+			penColor = c;
+			imageBufferGraphics.setColor(c);
+		}
+	}
+
+	/**
+	 * Accessor method for current drawing color
+	 * 
+	 * @return current drawing color
+	 */
+	public Color getpenColor() {
+		return penColor;
+	}
+
+	/**
+	 * Updates current drawing tool
+	 * 
+	 * @param t new drawing tool
+	 */
+	public void setcurrentTool(Tool t)  {
+		if( t != null )
+			currentTool = t;
+	}
+
+	/**
+	 * Accessor method for current drawing tool
+	 * 
+	 * @return current drawing tool
+	 */
+	public Tool getcurrentTool() {
+		return currentTool;
+	}
+
+	/**
+	 * Accessor method for imageBuffer
+	 * 
+	 * @return current image buffer graphics context
+	 */
+	public Graphics getimageBufferGraphics() {
+		return imageBufferGraphics;
+	}
+
+
+	/* (non-Javadoc)
+	 * 
+	 * Adjusts the size of the DrawingCanvas as well as the imageBuffer to match
+	 * the new DrawingCanvas size.
+	 * 
+	 * @see java.awt.Component#setBounds(int, int, int, int)
+	 */
+	public void setBounds(int x, int y, int width, int height) {
+		Image newimageBuffer = createImage(width, height);
+		imageBufferGraphics = newimageBuffer.getGraphics();
+		if (imageBuffer != null) {
+			imageBufferGraphics.drawImage(imageBuffer, 0, 0 ,this);
+		}
+		imageBuffer = newimageBuffer;
+		setpenColor(penColor);
+		super.setBounds(x, y, width, height);
+		repaint();
+		canvasWidth = width;
+		canvasHeight = height;
+	}
+
+	public Vector<Shape> objectAt(int x, int y){
+		return drawnObjects.search(x, y);
+	}
+
+	public void addShape(Shape shape){
+		drawnObjects.add(shape);
+	}
+
+	public void removeAllShapes() {
+		drawnObjects.removeAll();
+	}
 }// end public class DrawingCanvas extends JComponent
