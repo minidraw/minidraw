@@ -12,6 +12,8 @@ import util.Bounds;
 @SuppressWarnings("serial")
 public class ShapeList extends Vector<Shape>{	
 	
+	Vector<Shape> shapes = new Vector<Shape>();
+
 	/**
 	 * Searches the list of drawn objects for an object containing points (x,y).
 	 * It will add all the objects that contain the points and guess at the best fit for the selection.
@@ -20,7 +22,6 @@ public class ShapeList extends Vector<Shape>{
 	 * @return Shape desired object on the canvas
 	 */
 	public Shape search(int x, int y){
-		Vector<Shape> shapes = new Vector<Shape>();
 		Shape foundShape = null;
 		
 		for ( Shape shape : this ){
@@ -34,6 +35,16 @@ public class ShapeList extends Vector<Shape>{
 			foundShape = Bounds.resolveMultipleSelect(shapes);
 		}
 		return foundShape;
+	}
+	
+	public Vector<Shape> intersect(Shape s){
+		Vector<Shape> intersections = null;
+		
+		if(shapes.size() > 0){
+			intersections = Bounds.resolveIntersectingRedraw(s, shapes);
+		}
+		
+		return intersections;	
 	}
 	
 }
