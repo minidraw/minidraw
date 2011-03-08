@@ -5,10 +5,6 @@ import java.awt.Rectangle;
 public class Bounds {
 	private Rectangle bounds;
 	
-	public Bounds(int x, int y, int width, int height){
-		bounds = new Rectangle(x, y, width, height);
-	}
-	
 	public boolean contains(int x, int y){
 		if ( bounds.contains(x, y) ) {
 			return true;
@@ -39,6 +35,5 @@ public class Bounds {
 
 	public void update(int x, int y, int width, int height) {
 		bounds = new Rectangle(x, y, width, height);
-		
 	}
 }

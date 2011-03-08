@@ -23,13 +23,14 @@ public class TwoEndShapeTool extends Tool {
   protected Point startingMousePosition;
   protected Point currentMousePosition;
   protected Color saveColor;
+  protected Class<?> k;
   protected TwoEndShape shape;
 
   /****< Constructor >*********************************************************/
-  public TwoEndShapeTool(DrawingCanvas c, TwoEndShape s) {
-    if( c != null && s != null ) {
+  public TwoEndShapeTool(DrawingCanvas c, Class<?> k) {
+    if( c != null && k != null  ) {
       canvas = c;
-      shape = s;
+      this.k = k;
     } else {
       throw new IllegalArgumentException();
     }
@@ -43,20 +44,24 @@ public class TwoEndShapeTool extends Tool {
    * @see tools.Tool#mousePressed(java.awt.event.MouseEvent)
    */
   public void mousePressed(MouseEvent e)  {
-    
-    startingMousePosition = e.getPoint();
-    currentMousePosition = startingMousePosition;
-    Graphics iBGraphics = canvas.getimageBufferGraphics();
-    saveColor = iBGraphics.getColor( );
-    iBGraphics.setXORMode(Color.lightGray);
-    iBGraphics.setColor(Color.white);
-    shape.drawOutline(iBGraphics,
-                      startingMousePosition.x,
-                      startingMousePosition.y,
-                      startingMousePosition.x,
-		                  startingMousePosition.y);
-
-    canvas.repaint();
+    try {
+    	shape = (TwoEndShape) k.newInstance();
+	    startingMousePosition = e.getPoint();
+	    currentMousePosition = startingMousePosition;
+	    Graphics iBGraphics = canvas.getimageBufferGraphics();
+	    saveColor = iBGraphics.getColor( );
+	    iBGraphics.setXORMode(Color.lightGray);
+	    iBGraphics.setColor(Color.white);
+	    shape.drawOutline(iBGraphics,
+	                      startingMousePosition.x,
+	                      startingMousePosition.y,
+	                      startingMousePosition.x,
+			                  startingMousePosition.y);
+	
+	    canvas.repaint();
+    } catch ( Exception ex ){
+    	ex.printStackTrace();
+    }
   }
 
   /* (non-Javadoc)

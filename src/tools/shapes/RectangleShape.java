@@ -73,6 +73,7 @@ public class RectangleShape extends TwoEndShape {
       shapeY = y1;
       shapeHeight = (y0-y1)+1;
     }
+    bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
     g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
   }
 }// end public class RectangleShape extends TwoEndShape
