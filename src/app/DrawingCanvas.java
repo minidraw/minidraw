@@ -177,4 +177,11 @@ public class DrawingCanvas extends JComponent {
 	public void removeAllShapes() {
 		drawnObjects.removeAll();
 	}
+
+	public void deselectAll(){
+		for ( Shape shape : drawnObjects ) {
+			shape.deselect();
+		}
+	}
+
 }// end public class DrawingCanvas extends JComponent
