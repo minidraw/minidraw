@@ -175,6 +175,10 @@ public class DrawingCanvas extends JComponent {
 	public Shape objectAt(int x, int y){
 		return drawnObjects.search(x, y);
 	}
+	
+	public ShapeList getDrawnShapes(){
+		return drawnObjects;
+	}
 
 	/**
 	 * Setter method for adding a shape to the canvas
@@ -197,7 +201,7 @@ public class DrawingCanvas extends JComponent {
 	 */
 	public void deselectAll(){
 		for ( Shape shape : drawnObjects ) {
-			shape.deselect(this);
+			shape.deselect(imageBufferGraphics);
 		}
 	}
 

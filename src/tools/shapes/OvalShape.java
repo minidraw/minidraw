@@ -6,8 +6,8 @@ import java.awt.Graphics;
  * Defines the drawing behavior for drawing an oval.
  */
 public class OvalShape extends TwoEndShape {
-
-  /* (non-Javadoc)
+	
+/* (non-Javadoc)
    * 
    * Defines how to draw the oval bounded by the starting and ending points.
    * The smallest coordinates of the starting and ending positions are used to 
@@ -18,10 +18,6 @@ public class OvalShape extends TwoEndShape {
    * @see tools.shapes.TwoEndShape#draw(java.awt.Graphics, int, int, int, int)
    */
   public void draw(Graphics g, int x0, int y0, int x1, int y1) {
-    int shapeX;
-    int shapeY;
-    int shapeWidth;
-    int shapeHeight;
     
     // find smallest x coordinate and calculate width
     if (x0 <= x1) {
@@ -46,6 +42,10 @@ public class OvalShape extends TwoEndShape {
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
 }
   
+  public void redraw(Graphics g){
+	  g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+  }
+  
   /* (non-Javadoc)
    * 
    * Same algorithm as draw
@@ -54,10 +54,6 @@ public class OvalShape extends TwoEndShape {
    */
   public void drawOutline(Graphics g, int x0, int y0,
                                         int x1, int y1) {
-    int shapeX;
-    int shapeY;
-    int shapeWidth;
-    int shapeHeight;
     if (x0 <= x1) {
     shapeX = x0;
     shapeWidth = (x1-x0)+1;

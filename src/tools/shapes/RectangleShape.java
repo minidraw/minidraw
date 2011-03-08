@@ -2,12 +2,13 @@ package tools.shapes;
 
 import java.awt.Graphics;
 
+
 /**
  * Defines how to draw a Rectangle on the DrawingCanvas
  */
 public class RectangleShape extends TwoEndShape {
 
-  /* (non-Javadoc)
+/* (non-Javadoc)
    * 
    * Defines how to draw the rectangle with corners at the starting and ending
    * point. The smallest coordinates of the starting and ending positions are
@@ -18,10 +19,6 @@ public class RectangleShape extends TwoEndShape {
    * @see tools.shapes.TwoEndShape#draw(java.awt.Graphics, int, int, int, int)
    */
   public void draw(Graphics g, int x0, int y0, int x1, int y1) {
-    int shapeX;
-    int shapeY;
-    int shapeWidth;
-    int shapeHeight;
     
     // find smallest x coordinate and calculate width
     if (x0 <= x1) {
@@ -53,10 +50,7 @@ public class RectangleShape extends TwoEndShape {
    */
   public void drawOutline(Graphics g, int x0, int y0,
                                         int x1, int y1) {
-    int shapeX;
-    int shapeY;
-    int shapeWidth;
-    int shapeHeight;
+
     if (x0 <= x1) {
     shapeX = x0;
     shapeWidth = (x1-x0)+1;
@@ -76,4 +70,10 @@ public class RectangleShape extends TwoEndShape {
     bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
     g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
   }
+
+@Override
+public void redraw(Graphics g) {
+	 g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	
+}
 }// end public class RectangleShape extends TwoEndShape

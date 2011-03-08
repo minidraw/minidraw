@@ -59,14 +59,16 @@ public class Bounds{
 		return bestFit;
 	}
 	
-	public static Vector<Shape> resolveIntersectingRedraw(Shape s, Vector<Shape> shapes){
-		Vector<Shape> intersecting = null;
+	public Vector<Shape> findIntersectingShapes(Vector<Shape> shapes){
+		Vector<Shape> intersectingShapes = new Vector<Shape>();
+		
+		// Then find our intersections
 		for ( Shape shape : shapes ){
-			if ( s.getBounds().getBounds().intersects(shape.getBounds().getBounds())){
-				intersecting.add(shape);
+			if ( bounds.intersects(shape.getBounds().getBounds()) ){
+				intersectingShapes.add(shape);
 			}
 		}
-		return intersecting;
+		return intersectingShapes;
 	}
 	
 	public int area(){

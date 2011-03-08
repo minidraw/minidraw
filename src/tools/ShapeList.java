@@ -12,7 +12,7 @@ import util.Bounds;
 @SuppressWarnings("serial")
 public class ShapeList extends Vector<Shape>{	
 	
-	Vector<Shape> shapes = new Vector<Shape>();
+
 
 	/**
 	 * Searches the list of drawn objects for an object containing points (x,y).
@@ -23,6 +23,7 @@ public class ShapeList extends Vector<Shape>{
 	 */
 	public Shape search(int x, int y){
 		Shape foundShape = null;
+		Vector<Shape> shapes = new Vector<Shape>();
 		
 		for ( Shape shape : this ){
 			if ( shape.getBounds().contains(x, y) ){
@@ -37,14 +38,7 @@ public class ShapeList extends Vector<Shape>{
 		return foundShape;
 	}
 	
-	public Vector<Shape> intersect(Shape s){
-		Vector<Shape> intersections = null;
-		
-		if(shapes.size() > 0){
-			intersections = Bounds.resolveIntersectingRedraw(s, shapes);
-		}
-		
-		return intersections;	
+	public Vector<Shape> intersecting(Shape s){	
+		return s.getBounds().findIntersectingShapes(this);
 	}
-	
 }

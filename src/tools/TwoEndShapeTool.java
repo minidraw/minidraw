@@ -46,6 +46,7 @@ public class TwoEndShapeTool extends Tool {
   public void mousePressed(MouseEvent e)  {
     try {
     	shape = (TwoEndShape) k.newInstance();
+    	shape.setCanvas(canvas);
 	    startingMousePosition = e.getPoint();
 	    currentMousePosition = startingMousePosition;
 	    Graphics iBGraphics = canvas.getimageBufferGraphics();

@@ -12,7 +12,7 @@ import java.awt.Graphics;
  */
 public abstract class TwoEndShape extends Shape{
 
-  /**
+/**
    * Facilitates drawing an outline as the user drags the mouse.
    * 
    * @param g Graphics context to use

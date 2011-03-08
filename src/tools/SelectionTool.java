@@ -37,7 +37,10 @@ public class SelectionTool extends Tool {
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		
 		if ( selectedShape != null ){
-			selectedShape.select(iBGraphics);
+			if ( !selectedShape.isSelected() )
+				selectedShape.select(iBGraphics, true);
+			else
+				selectedShape.select(iBGraphics, false);
 		} else {
 			canvas.deselectAll();
 		}
