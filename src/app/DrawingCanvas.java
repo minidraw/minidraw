@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Vector;
 
 import javax.swing.JComponent;
 
@@ -166,21 +165,39 @@ public class DrawingCanvas extends JComponent {
 		canvasHeight = height;
 	}
 
+	/** 
+	 * Accessor method for an object at a specific location on the canvas
+	 * 
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 * @return Shape containing the given (x,y)
+	 */
 	public Shape objectAt(int x, int y){
 		return drawnObjects.search(x, y);
 	}
 
+	/**
+	 * Setter method for adding a shape to the canvas
+	 * 
+	 * @param shape Shape to be added
+	 */
 	public void addShape(Shape shape){
 		drawnObjects.add(shape);
 	}
 
+	/**
+	 * Removes all objects from the drawing canvas
+	 */
 	public void removeAllShapes() {
-		drawnObjects.removeAll();
+		drawnObjects.removeAllElements();
 	}
 
+	/**
+	 * Deselects all the selected shapes on the canvas
+	 */
 	public void deselectAll(){
 		for ( Shape shape : drawnObjects ) {
-			shape.deselect();
+			shape.deselect(this);
 		}
 	}
 

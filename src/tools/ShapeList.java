@@ -5,46 +5,46 @@ import java.util.Vector;
 import tools.shapes.Shape;
 import util.Bounds;
 
+/**
+ * A basic vector list that is intended to contain shapes.
+ * 
+ */
 @SuppressWarnings("serial")
-public class ShapeList extends Vector<Shape>{
-	private Vector<Shape> list;
+public class ShapeList extends Vector<Shape>{	
 	
-	public ShapeList(){
-		list = new Vector<Shape>();
-	}
-	
-	public boolean add(Shape shape){
-		if ( shape != null ){
-			list.add(shape);
-			return true;
-		}
-		return false;
-	}
-	
+	Vector<Shape> shapes = new Vector<Shape>();
+
+	/**
+	 * Searches the list of drawn objects for an object containing points (x,y).
+	 * It will add all the objects that contain the points and guess at the best fit for the selection.
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 * @return Shape desired object on the canvas
+	 */
 	public Shape search(int x, int y){
-		Vector<Shape> shapes = new Vector<Shape>();
 		Shape foundShape = null;
 		
-		for ( Shape shape : list ){
+		for ( Shape shape : this ){
 			if ( shape.getBounds().contains(x, y) ){
 				shapes.add(shape);
 			}
 		}
 		
-		// If there are more than one shapes being selected, then we want to only chose the 
-		// shape that has smaller area, since it is chanced that one is inside the other/
+		// If there is more than one candidate, eliminate down to one.
 		if ( shapes.size() > 0 ){
 			foundShape = Bounds.resolveMultipleSelect(shapes);
 		}
 		return foundShape;
 	}
-
-	public void removeAll() {
-		list.removeAllElements();
-	}
 	
-	public void remove(Shape s){
-		list.remove(s);		
+	public Vector<Shape> intersect(Shape s){
+		Vector<Shape> intersections = null;
+		
+		if(shapes.size() > 0){
+			intersections = Bounds.resolveIntersectingRedraw(s, shapes);
+		}
+		
+		return intersections;	
 	}
 	
 }

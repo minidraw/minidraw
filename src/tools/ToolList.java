@@ -20,7 +20,7 @@ public class ToolList {
 
   /****< Constructors >********************************************************/
   public ToolList() {
-   list = new Vector<Object>(5,1);
+   list = new Vector<Object>(6,1);
   }
   
   /****< List Methods >********************************************************/
