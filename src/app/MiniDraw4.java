@@ -132,28 +132,30 @@ public class MiniDraw4 extends JApplet  {
   	                     "freehand drawing tool",
   	                     canvas,
   	                     new FreehandTool(canvas)));
-
+try{
     actions.add(
   		new ToolController("Line",
   		getImageIcon("line.jpg"),
   		"Line drawing tool",
   		canvas,
-  		new TwoEndShapeTool(canvas, new LineShape())));
+  		new TwoEndShapeTool(canvas, Class.forName("tools.shapes.LineShape"))));
   
     actions.add(
   		new ToolController("Rectangle",
   		getImageIcon("rectangle.jpg"),
   		"Rectangle drawing tool",
   		canvas,
-  		new TwoEndShapeTool(canvas, new RectangleShape())));
+  		new TwoEndShapeTool(canvas, Class.forName("tools.shapes.RectangleShape"))));
   		
     actions.add(
   	    new ToolController("Oval",
   	    getImageIcon("oval.jpg"),
   		"Oval drawing tool",
   		canvas,
-  		new TwoEndShapeTool(canvas, new OvalShape())));
-
+  		new TwoEndShapeTool(canvas, Class.forName("tools.shapes.OvalShape"))));
+} catch ( ClassNotFoundException e){
+	e.printStackTrace();
+}
     actions.add(
   		new ToolController("Text",
   		getImageIcon("text.jpg"),

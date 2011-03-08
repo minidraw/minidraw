@@ -2,6 +2,7 @@ package tools;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
 
 import tools.shapes.Shape;
 
@@ -18,11 +19,13 @@ public class SelectionTool extends Tool {
 	}
 
 	public void mouseClicked(MouseEvent e){
-		Shape selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
+		Vector<Shape> selectedShapes = canvas.objectAt(e.getPoint().x, e.getPoint().y);
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		
-		if ( selectedShape != null ){
-			selectedShape.select(iBGraphics);
+		if ( selectedShapes.size() > 0 ){
+			for ( Shape shape : selectedShapes ){
+				shape.select(iBGraphics);
+			}
 		}
 		else{
 			

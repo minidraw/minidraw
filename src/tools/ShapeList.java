@@ -17,12 +17,15 @@ public class ShapeList {
 		}
 	}
 	
-	public Shape search(int x, int y){
+	public Vector<Shape> search(int x, int y){
+		Vector<Shape> shapes = new Vector<Shape>();
 		for ( Shape shape : list ){
 			if ( shape.getBounds().contains(x, y) ){
-				return shape;
+				if ( !shape.isSelected() ){
+					shapes.add(shape);
+				}
 			}
 		}
-		return null;
+		return shapes;
 	}
 }

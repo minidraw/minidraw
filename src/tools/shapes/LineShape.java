@@ -17,6 +17,7 @@ public class LineShape extends TwoEndShape {
    * @see tools.shapes.TwoEndShape#draw(java.awt.Graphics, int, int, int, int)
    */
   public void draw(Graphics g, int x0, int y0, int x1, int y1) {
+	bounds.update(x0, y0, x0+x1, y0+y1);
     g.drawLine(x0, y0, x1, y1);
   }
 

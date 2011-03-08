@@ -44,7 +44,7 @@ public class OvalShape extends TwoEndShape {
       shapeY = y1;
       shapeHeight = (y0-y1)+1;
     }
-    bounds = new Bounds(shapeX, shapeY, shapeWidth, shapeHeight);
+    bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
 }
   
