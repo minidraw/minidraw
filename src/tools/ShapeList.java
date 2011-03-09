@@ -12,8 +12,6 @@ import util.Bounds;
 @SuppressWarnings("serial")
 public class ShapeList extends Vector<Shape>{	
 	
-
-
 	/**
 	 * Searches the list of drawn objects for an object containing points (x,y).
 	 * It will add all the objects that contain the points and guess at the best fit for the selection.
