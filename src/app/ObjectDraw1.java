@@ -154,15 +154,16 @@ try{
   		"Oval drawing tool",
   		canvas,
   		new TwoEndShapeTool(canvas, Class.forName("tools.shapes.OvalShape"))));
-} catch ( ClassNotFoundException e){
-	e.printStackTrace();
-}
+
     actions.add(
   		new ToolController("Text",
   		getImageIcon("text.jpg"),
   		"text drawing tool",
         canvas,
-  		new TextTool(canvas)));		
+  		new TextTool(canvas, Class.forName("tools.shapes.TextShape"))));
+} catch ( ClassNotFoundException e){
+	e.printStackTrace();
+}
     actions.add(
   		new ToolController("Eraser",
   		getImageIcon("eraser.jpg"),
