@@ -73,9 +73,9 @@ public class TextTool extends Tool {
 		text.append(nextChar); 
 
 		if(e.isShiftDown())
-			shape.updateBounds(iBGraphics, 26);
+			shape.updateBounds(iBGraphics, 18);
 		else
-			shape.updateBounds(iBGraphics, 22);
+			shape.updateBounds(iBGraphics, 12);
 		
 		iBGraphics.drawString(text.toString(), startingPosition.x, startingPosition.y);
 		shape.updateText(text);
