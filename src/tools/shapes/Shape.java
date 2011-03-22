@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Vector;
 
@@ -36,6 +37,8 @@ public abstract class Shape {
 
 	public void select(Graphics g, boolean s){
 		selected = s;
+		g.setColor(Color.BLACK);
+		
 		if ( selected ){
 			g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth(), bounds.getHeight());
 			g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
@@ -57,6 +60,7 @@ public abstract class Shape {
 				}
 			}
 		}
+		g.setColor(canvas.getpenColor());
 	}
 
 	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);

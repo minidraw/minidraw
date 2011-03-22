@@ -63,6 +63,7 @@ public class ObjectDraw1 extends JApplet  {
     getContentPane().add(toolBar, BorderLayout.WEST);
     menuBar = createMenuBarView(toolList);
     getContentPane().add (menuBar, BorderLayout.NORTH);
+    setSize(600, 600);
   }
 
   /****< Factory methods >*****************************************************/
@@ -217,7 +218,7 @@ try{
 			      BorderLayout.CENTER);
     frame.addWindowListener(new AppCloser());
     frame.pack();
-    frame.setSize(600, 400);
+    frame.setSize(600, 600);
     frame.setVisible(true);
   }
   
