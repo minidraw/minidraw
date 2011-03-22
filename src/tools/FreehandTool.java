@@ -2,9 +2,9 @@ package tools;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+
+
 import app.DrawingCanvas;
-
-
 
 /**
  * Draws a Freehand shape on the DrawingCanvas.
@@ -17,6 +17,7 @@ public class FreehandTool extends Tool {
    
   /* Class member variables */
   protected DrawingCanvas canvas;
+  protected FreehandShape shape;
   protected Point startingMousePosition;
 
   /****< Constructor >*********************************************************/
@@ -29,15 +30,7 @@ public class FreehandTool extends Tool {
   
   /****< Draw Method >*********************************************************/
   protected void drawLineSegment(Point p1, Point p2) {
-    canvas.getimageBufferGraphics().drawLine(p1.x,p1.y,
-				           p2.x, p2.y);
-    /* redraw only the small rectangle  */
-    /* containing the new line segment  */
-    int x0 = Math.min(p1.x, p2.x);
-    int y0 = Math.min(p1.y, p2.y);
-    int dx = Math.abs(p2.x - p1.x)+ 1;
-    int dy = Math.abs(p2.y - p1.y) + 1;
-    canvas.repaint(x0, y0, dx, dy);
+	  shape.draw(canvas.getimageBufferGraphics(), p1.x, p1.y, p2.x, p2.y);
   }
 
   /****< Event Handlers >******************************************************/
@@ -49,6 +42,8 @@ public class FreehandTool extends Tool {
    */
   public void mousePressed(MouseEvent e)  {    
     startingMousePosition = e.getPoint();
+    shape = new FreehandShape(canvas);
+    shape.addPoint(startingMousePosition);
   }
 
   /* (non-Javadoc)
@@ -63,5 +58,10 @@ public class FreehandTool extends Tool {
 				newMousePosition);
     /* update current mouse coordinates */
     startingMousePosition = newMousePosition;
+    shape.addPoint(newMousePosition);
+  }
+  
+  public void mouseReleased(MouseEvent e){
+	  canvas.addShape(shape);
   }
 }// end public class FreehandTool extends Tool

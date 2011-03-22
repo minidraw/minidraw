@@ -19,6 +19,11 @@ public abstract class Shape {
 		bounds = new Bounds();
 	}
 	
+	public Shape(DrawingCanvas c){
+		this();
+		canvas = c;
+	}
+	
 	public void setCanvas(DrawingCanvas c){
 		canvas = c;
 	}

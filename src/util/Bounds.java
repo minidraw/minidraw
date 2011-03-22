@@ -35,7 +35,19 @@ public class Bounds{
 	public Rectangle getBounds(){
 		return bounds;
 	}
+	
+	public String toString(){
+		return "X: " + bounds.getX() + " Y: " + bounds.getY() + " Width: " + bounds.getWidth() + " Height: " + 
+		bounds.getHeight();
+	}
 
+	/**
+	 * Updates the bounds of the Shape
+	 * @param x int x coordinate of top left
+	 * @param y int y coordinate of top left
+	 * @param width int width of the shape
+	 * @param height int height of the shape
+	 */
 	public void update(int x, int y, int width, int height) {
 		bounds = new Rectangle(x, y, width, height);
 	}
