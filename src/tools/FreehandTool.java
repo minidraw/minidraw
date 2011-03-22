@@ -3,6 +3,8 @@ package tools;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import tools.shapes.FreehandShape;
+
 
 import app.DrawingCanvas;
 

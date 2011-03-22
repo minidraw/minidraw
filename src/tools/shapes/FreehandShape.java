@@ -1,4 +1,4 @@
-package tools;
+package tools.shapes;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -6,7 +6,6 @@ import java.util.Vector;
 
 import app.DrawingCanvas;
 
-import tools.shapes.Shape;
 
 public class FreehandShape extends Shape {
 	private int maxY, maxX;
