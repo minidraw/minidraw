@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-import tools.EraserTool;
 import tools.FreehandTool;
 import tools.SelectionTool;
 import tools.TextTool;
@@ -165,12 +164,6 @@ try{
 } catch ( ClassNotFoundException e){
 	e.printStackTrace();
 }
-    actions.add(
-  		new ToolController("Eraser",
-  		getImageIcon("eraser.jpg"),
-  		"Eraser drawing tool",
-  		canvas,
-  		new EraserTool(canvas)));
     actions.add(
 		new ToolController("Select",
 		getImageIcon("select.gif"),

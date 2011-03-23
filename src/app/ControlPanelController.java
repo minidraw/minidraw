@@ -41,8 +41,12 @@ public class ControlPanelController	implements ActionListener, ItemListener {
    * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
    */
   public void actionPerformed(ActionEvent e) {
-	  canvas.removeAllShapes();
-	  canvas.clearCanvas();
+	  if ( e.getActionCommand() == "clear" ){
+		  canvas.removeAllShapes();
+		  canvas.clearCanvas();
+	  } else {
+		  canvas.deselectAll(true);
+	  }
   }
 
   /* (non-Javadoc)

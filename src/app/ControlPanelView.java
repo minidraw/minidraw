@@ -19,7 +19,7 @@ public class ControlPanelView extends JPanel {
   /* Class members */
   protected DrawingCanvas canvas;
   protected ControlPanelController CPcontroller;
-  protected JButton clearButton;
+  protected JButton clearButton, eraseButton;
   protected JComboBox comboBox;
   
   /****< Constructors >********************************************************/
@@ -35,7 +35,9 @@ public class ControlPanelView extends JPanel {
 	  throw new IllegalArgumentException();
 	
     canvas = c;
+    eraseButton = new JButton("Erase");
     clearButton = new JButton("Clear");
+    add(eraseButton);
     add(clearButton);
     add(new JLabel("Pen color"));
     comboBox = new JComboBox();
@@ -74,7 +76,9 @@ public class ControlPanelView extends JPanel {
    */
   protected void addControlPanelListener(ControlPanelController listener)  {
 	  if( listener != null ) {
+		  eraseButton.addActionListener((ActionListener)listener);
       clearButton.addActionListener((ActionListener)listener);
+      clearButton.setActionCommand("clear");
       comboBox.addItemListener((ItemListener)listener);
 	  } else {
 	    throw new IllegalArgumentException();

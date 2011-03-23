@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Vector;
 
 import javax.swing.JComponent;
 
@@ -198,11 +199,24 @@ public class DrawingCanvas extends JComponent {
 
 	/**
 	 * Deselects all the selected shapes on the canvas
+	 * 
+	 * @param erase boolean If true => erase the shapes as well
 	 */
-	public void deselectAll(){
+	public void deselectAll(boolean erase){
+		Vector<Shape> shapesToBeRemoved = new Vector<Shape>();
 		for ( Shape shape : drawnObjects ) {
-			shape.deselect(imageBufferGraphics);
+			if ( shape.isSelected() ){
+				shape.deselect(imageBufferGraphics);
+				if ( erase ){
+					shapesToBeRemoved.add(shape);
+				}
+			}
 		}
+		for ( Shape shape : shapesToBeRemoved ){
+			drawnObjects.remove(shape);
+			shape.erase(imageBufferGraphics);
+		}
+		repaint();
 	}
 
 }// end public class DrawingCanvas extends JComponent
