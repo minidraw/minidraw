@@ -80,4 +80,9 @@ public class LineShape extends TwoEndShape {
 public void redraw(Graphics g) {
     g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
 }
+
+@Override
+public void redraw(Graphics g, int x, int y) {
+	g.drawLine(lineStartX+x, lineStartY+y, lineEndX+x, lineEndY+y);
+}
 }// end public class LineShape extends TwoEndShape

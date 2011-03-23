@@ -70,4 +70,5 @@ public abstract class Shape {
 
 	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
 	abstract public void redraw(Graphics g);
+	abstract public void redraw(Graphics g, int x, int y);
 }

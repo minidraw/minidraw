@@ -76,4 +76,10 @@ public void redraw(Graphics g) {
 	 g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
 	
 }
+
+@Override
+public void redraw(Graphics g, int x, int y) {
+	// TODO Auto-generated method stub
+	
+}
 }// end public class RectangleShape extends TwoEndShape

@@ -32,4 +32,10 @@ public class TextShape extends Shape{
 	}
 
 	public String getText(){return text;}
+
+	@Override
+	public void redraw(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 }
