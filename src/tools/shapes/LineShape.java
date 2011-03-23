@@ -10,6 +10,11 @@ import java.awt.Graphics;
  * point. 
  */
 public class LineShape extends TwoEndShape {
+	private int lineStartX;
+	private int lineStartY;
+	private int lineEndX;
+	private int lineEndY;
+	
 
 /**
    * 
@@ -18,13 +23,43 @@ public class LineShape extends TwoEndShape {
    * @see tools.shapes.TwoEndShape#draw(java.awt.Graphics, int, int, int, int)
    */
   public void draw(Graphics g, int x0, int y0, int x1, int y1) {
-	shapeX = x0;
-	shapeY = y0;
-	shapeHeight = y1;
-	shapeWidth = x1;
+	lineStartX = x0;
+	lineStartY = y0;
+	lineEndX = x1;
+	lineEndY = y1;
+	  
+	if( y1 < y0 && x1 < x0){
+		shapeX = x1;
+		shapeY = y1;
+		shapeHeight = y0 - y1;
+		shapeWidth = x0 - x1;
+	}
+	  
+	else if( x1 < x0 ){
+		shapeX = x1;
+		shapeY = y0;
+		shapeHeight = y1 - y0;
+		shapeWidth = x0 - x1;
+	}
+	  
+	else if( y1 < y0 ){
+		shapeX = x0;
+		shapeY = y1;
+		shapeHeight = y0 - y1;
+		shapeWidth = x1 - x0;
+	}
+	  
 	
-	bounds.update(shapeX, shapeY, x0+x1, y0+y1);
-    g.drawLine(shapeX, shapeY, shapeWidth, shapeHeight);
+	else{
+		shapeX = x0;
+		shapeY = y0;
+		shapeHeight = y1-y0;
+		shapeWidth = x1-x0;
+	}
+	
+	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+    g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
+
   }
 
   /**
@@ -43,7 +78,6 @@ public class LineShape extends TwoEndShape {
 
 @Override
 public void redraw(Graphics g) {
-	
-	  g.drawLine(shapeX, shapeY, shapeWidth, shapeHeight);
+    g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
 }
 }// end public class LineShape extends TwoEndShape
