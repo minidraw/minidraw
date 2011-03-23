@@ -49,7 +49,7 @@ public class SelectionTool extends Tool {
 			else
 				selectedShape.select(iBGraphics, false);
 		} else {
-			canvas.deselectAll();
+			canvas.deselectAll(false);
 		}
 		canvas.repaint();
 	}
