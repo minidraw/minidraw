@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Vector;
@@ -11,8 +12,8 @@ public class FreehandShape extends Shape {
 	private int maxY, maxX;
 	private Vector<Point> points;
 
-	public FreehandShape(DrawingCanvas c){
-		super(c);
+	public FreehandShape(DrawingCanvas c, Color co){
+		super(c, co);
 		maxY = 0;
 		maxX = 0;
 		shapeX = Integer.MAX_VALUE;
@@ -49,10 +50,13 @@ public class FreehandShape extends Shape {
 	}
 
 	@Override
-	public void redraw(Graphics g) {
+	public void redraw(Graphics g, Color c) {
+		if ( c != null ) outlineColor = c;
+		g.setColor(outlineColor);
 		for ( int i = 1; i < points.size(); i++ ){
 			draw(g, points.get(i).x, points.get(i).y, points.get(i-1).x, points.get(i-1).y);
 		}
+		g.setColor(canvas.getpenColor());
 	}
 
 	@Override

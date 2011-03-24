@@ -1,5 +1,6 @@
 package app;
 
+import tools.SelectionTool;
 import tools.ShapeList;
 import tools.Tool;
 import tools.shapes.Shape;
@@ -104,6 +105,12 @@ public class DrawingCanvas extends JComponent {
 		if( c != null ) {	
 			penColor = c;
 			imageBufferGraphics.setColor(c);
+			for ( Shape shape : drawnObjects ){
+				if ( shape.isSelected() ){
+					shape.redraw(imageBufferGraphics, c);
+					repaint();
+				}
+			}
 		}
 	}
 
@@ -122,8 +129,14 @@ public class DrawingCanvas extends JComponent {
 	 * @param t new drawing tool
 	 */
 	public void setcurrentTool(Tool t)  {
-		if( t != null )
+		if( t != null ){
+			// Check for selection twice to deselect
+			if ( currentTool instanceof SelectionTool && currentTool == t){
+				deselectAll(false);
+				currentTool = null;
+			} else
 			currentTool = t;
+		}
 	}
 
 	/**

@@ -50,7 +50,7 @@ public class SelectionTool extends Tool {
 			else
 				selectShape.select(iBGraphics, false);
 		} else {
-			canvas.deselectAll(false);
+			canvas.setcurrentTool(this);
 		}
 		canvas.repaint();
 	}
@@ -59,7 +59,7 @@ public class SelectionTool extends Tool {
 		try {
 			iBGraphics = canvas.getimageBufferGraphics();
 			selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
-			if(selectedShape.isSelected()){
+			if(selectedShape != null && selectedShape.isSelected() ){
 				startingMousePosition = e.getPoint();
 				currentMousePosition = startingMousePosition;				
 			}
@@ -69,18 +69,21 @@ public class SelectionTool extends Tool {
 	}
 	public void mouseDragged(MouseEvent e){
 		try {
-			selectedShape = canvas.objectAt(startingMousePosition.x, startingMousePosition.y);
-			iBGraphics = canvas.getimageBufferGraphics();
-			if(selectedShape.isSelected()){
+			if(selectedShape != null && selectedShape.isSelected()){
+				selectedShape = canvas.objectAt(startingMousePosition.x, startingMousePosition.y);
+				iBGraphics = canvas.getimageBufferGraphics();
 				startingMousePosition = currentMousePosition;
 				currentMousePosition = e.getPoint();
-				
+
 				int xDifference = startingMousePosition.x - currentMousePosition.x;
 				int yDifference = startingMousePosition.y - currentMousePosition.y;
-		
+
+				System.out.println(xDifference+" : "+yDifference);
+
 				selectedShape.redraw(iBGraphics,xDifference , yDifference);
 				canvas.repaint();
-				
+
+
 			}
 		}
 		catch ( Exception ex ){

@@ -46,7 +46,7 @@ public class TextTool extends Tool {
 	 */
 	public void mousePressed(MouseEvent e)  {
 		try{
-			shape = (TextShape) k.newInstance();
+			shape = new TextShape(canvas.getpenColor());
 			shape.setCanvas(canvas);
 			canvas.requestFocus();
 			startingPosition = e.getPoint();

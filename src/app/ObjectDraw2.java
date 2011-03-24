@@ -164,6 +164,11 @@ try{
 } catch ( ClassNotFoundException e){
 	e.printStackTrace();
 }
+	actions.add(
+			new ToolController("Erase",
+					getImageIcon("eraser.jpg"),
+					"Erase selected shapes",
+					canvas,null){public void setEnabled(boolean enabled){enabled = true;}});
     actions.add(
 		new ToolController("Select",
 		getImageIcon("select.gif"),

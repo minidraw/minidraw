@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -7,6 +8,10 @@ import java.awt.Graphics;
  * Defines how to draw a Rectangle on the DrawingCanvas
  */
 public class RectangleShape extends TwoEndShape {
+
+public RectangleShape(Color c) {
+		super(c);
+	}
 
 /* (non-Javadoc)
    * 
@@ -72,8 +77,11 @@ public class RectangleShape extends TwoEndShape {
   }
 
 @Override
-public void redraw(Graphics g) {
+public void redraw(Graphics g, Color c) {
+	if ( c != null ) outlineColor = c;
+	g.setColor(outlineColor);
 	 g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	 g.setColor(canvas.getpenColor());
 	
 }
 
