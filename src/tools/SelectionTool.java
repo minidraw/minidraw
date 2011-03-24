@@ -24,6 +24,7 @@ public class SelectionTool extends Tool {
 	protected Point startingMousePosition;
 	protected Point currentMousePosition;
 	protected Graphics iBGraphics;
+	protected Shape selectedShape;
 
 	/****< Constructor >*********************************************************/
 	public SelectionTool(DrawingCanvas c){
@@ -40,14 +41,14 @@ public class SelectionTool extends Tool {
 	 * @see tools.Tool#mouseClicked(java.awt.event.MouseEvent)
 	 */
 	public void mouseClicked(MouseEvent e){
-		Shape selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
+		Shape selectShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
 		iBGraphics = canvas.getimageBufferGraphics();
 
-		if ( selectedShape != null ){
-			if ( !selectedShape.isSelected() )
-				selectedShape.select(iBGraphics, true);
+		if ( selectShape != null ){
+			if ( !selectShape.isSelected() )
+				selectShape.select(iBGraphics, true);
 			else
-				selectedShape.select(iBGraphics, false);
+				selectShape.select(iBGraphics, false);
 		} else {
 			canvas.deselectAll(false);
 		}
@@ -57,7 +58,7 @@ public class SelectionTool extends Tool {
 	public void mousePressed(MouseEvent e)  {
 		try {
 			iBGraphics = canvas.getimageBufferGraphics();
-			Shape selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
+			selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
 			if(selectedShape.isSelected()){
 				startingMousePosition = e.getPoint();
 				currentMousePosition = startingMousePosition;				
@@ -68,7 +69,7 @@ public class SelectionTool extends Tool {
 	}
 	public void mouseDragged(MouseEvent e){
 		try {
-			Shape selectedShape = canvas.objectAt(startingMousePosition.x, startingMousePosition.y);
+			selectedShape = canvas.objectAt(startingMousePosition.x, startingMousePosition.y);
 			iBGraphics = canvas.getimageBufferGraphics();
 			if(selectedShape.isSelected()){
 				startingMousePosition = currentMousePosition;
@@ -78,6 +79,7 @@ public class SelectionTool extends Tool {
 				int yDifference = startingMousePosition.y - currentMousePosition.y;
 		
 				selectedShape.redraw(iBGraphics,xDifference , yDifference);
+				canvas.repaint();
 				
 			}
 		}
