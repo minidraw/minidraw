@@ -1,5 +1,6 @@
 package app;
 
+import tools.SelectionTool;
 import tools.ShapeList;
 import tools.Tool;
 import tools.shapes.Shape;
@@ -122,8 +123,12 @@ public class DrawingCanvas extends JComponent {
 	 * @param t new drawing tool
 	 */
 	public void setcurrentTool(Tool t)  {
-		if( t != null )
+		if( t != null ){
+			// Check for selection twice to deselect
+			if ( currentTool instanceof SelectionTool && currentTool == t)
+				deselectAll(true);
 			currentTool = t;
+		}
 	}
 
 	/**
