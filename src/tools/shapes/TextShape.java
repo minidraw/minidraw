@@ -1,9 +1,14 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class TextShape extends Shape{
 	
+	public TextShape(Color c) {
+		super(c);
+	}
+
 	private String text;
 
 	public void updateBounds(Graphics g, int margin){
@@ -21,8 +26,11 @@ public class TextShape extends Shape{
 	}
 
 	@Override
-	public void redraw(Graphics g) {
-		g.drawString(text, shapeX+3, shapeY+19);		
+	public void redraw(Graphics g, Color c) {
+		if ( c != null ) outlineColor = c;
+		g.setColor(outlineColor);
+		g.drawString(text, shapeX+3, shapeY+19);	
+		g.setColor(canvas.getpenColor());
 	}
 
 	public void updateText(StringBuffer txt) {

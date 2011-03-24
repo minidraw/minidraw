@@ -105,6 +105,12 @@ public class DrawingCanvas extends JComponent {
 		if( c != null ) {	
 			penColor = c;
 			imageBufferGraphics.setColor(c);
+			for ( Shape shape : drawnObjects ){
+				if ( shape.isSelected() ){
+					shape.redraw(imageBufferGraphics, c);
+					repaint();
+				}
+			}
 		}
 	}
 

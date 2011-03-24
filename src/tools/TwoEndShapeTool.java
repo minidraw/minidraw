@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Constructor;
+
 import app.DrawingCanvas;
 import tools.shapes.TwoEndShape;
 
@@ -43,9 +45,11 @@ public class TwoEndShapeTool extends Tool {
    * 
    * @see tools.Tool#mousePressed(java.awt.event.MouseEvent)
    */
-  public void mousePressed(MouseEvent e)  {
+  @SuppressWarnings("unchecked")
+public void mousePressed(MouseEvent e)  {
     try {
-    	shape = (TwoEndShape) k.newInstance();
+    	Constructor construct = k.getConstructor(Color.class);
+    	shape = (TwoEndShape) construct.newInstance(canvas.getpenColor());
     	shape.setCanvas(canvas);
 	    startingMousePosition = e.getPoint();
 	    currentMousePosition = startingMousePosition;

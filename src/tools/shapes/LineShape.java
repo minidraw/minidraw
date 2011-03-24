@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 
@@ -10,6 +11,10 @@ import java.awt.Graphics;
  * point. 
  */
 public class LineShape extends TwoEndShape {
+	public LineShape(Color c) {
+		super(c);
+	}
+
 	private int lineStartX;
 	private int lineStartY;
 	private int lineEndX;
@@ -77,7 +82,10 @@ public class LineShape extends TwoEndShape {
   }
 
 @Override
-public void redraw(Graphics g) {
+public void redraw(Graphics g, Color c) {
+	if ( c != null ) outlineColor = c;
+	g.setColor(outlineColor);
     g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
+    g.setColor(canvas.getpenColor());
 }
 }// end public class LineShape extends TwoEndShape
