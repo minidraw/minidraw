@@ -125,8 +125,10 @@ public class DrawingCanvas extends JComponent {
 	public void setcurrentTool(Tool t)  {
 		if( t != null ){
 			// Check for selection twice to deselect
-			if ( currentTool instanceof SelectionTool && currentTool == t)
-				deselectAll(true);
+			if ( currentTool instanceof SelectionTool && currentTool == t){
+				deselectAll(false);
+				currentTool = null;
+			} else
 			currentTool = t;
 		}
 	}
