@@ -84,4 +84,11 @@ public void redraw(Graphics g, Color c) {
 	 g.setColor(canvas.getpenColor());
 	
 }
+
+public void redraw(Graphics g, int x, int y){
+	shapeX = shapeX+x;
+	shapeY = shapeY+y;
+	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+	g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+}
 }// end public class RectangleShape extends TwoEndShape

@@ -54,6 +54,13 @@ public OvalShape(Color c) {
 	  g.setColor(canvas.getpenColor());
   }
   
+  public void redraw(Graphics g, int x, int y){
+	  shapeX = shapeX+x;
+	  shapeY = shapeY+y;
+	  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+	  g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+  }
+  
   /* (non-Javadoc)
    * 
    * Same algorithm as draw

@@ -46,17 +46,21 @@ public abstract class Shape {
 		selected = s;
 		
 		if ( selected ){
-			g.setColor(Color.BLACK);
-			g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth(), bounds.getHeight());
-			g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
-			g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
-			g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
-			g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
-			g.setColor(canvas.getpenColor());
+			drawBounds(g);
 		} else {
 			erase(g);
 			redraw(g, outlineColor);
 		}
+	}
+	
+	protected void drawBounds(Graphics g){
+		g.setColor(Color.BLACK);
+		g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth(), bounds.getHeight());
+		g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
+		g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
+		g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+		g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+		g.setColor(canvas.getpenColor());
 	}
 	
 	public boolean equals(Object o){
@@ -86,4 +90,11 @@ public abstract class Shape {
 
 	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
 	abstract public void redraw(Graphics g, Color c);
+	/**
+	 * UPDATES WITH THE DX AND DY !!
+	 * @param g
+	 * @param x
+	 * @param y
+	 */
+	abstract public void redraw(Graphics g, int x, int y);
 }

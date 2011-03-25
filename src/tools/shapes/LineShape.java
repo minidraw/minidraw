@@ -88,4 +88,8 @@ public void redraw(Graphics g, Color c) {
     g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
     g.setColor(canvas.getpenColor());
 }
+
+public void redraw(Graphics g, int x, int y){
+	  g.drawLine(x, y, shapeX, shapeY);
+}
 }// end public class LineShape extends TwoEndShape

@@ -108,9 +108,9 @@ public class DrawingCanvas extends JComponent {
 			for ( Shape shape : drawnObjects ){
 				if ( shape.isSelected() ){
 					shape.redraw(imageBufferGraphics, c);
-					repaint();
 				}
 			}
+			repaint();
 		}
 	}
 
@@ -231,5 +231,5 @@ public class DrawingCanvas extends JComponent {
 		}
 		repaint();
 	}
-
+	
 }// end public class DrawingCanvas extends JComponent

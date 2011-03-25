@@ -32,6 +32,12 @@ public class TextShape extends Shape{
 		g.drawString(text, shapeX+3, shapeY+19);	
 		g.setColor(canvas.getpenColor());
 	}
+	
+	  public void redraw(Graphics g, int x, int y){
+		  shapeX = shapeX+x;
+		  shapeY = shapeY+y;
+		  g.drawString(text, shapeX+3, shapeY+19);
+	  }
 
 	public void updateText(StringBuffer txt) {
 		if(txt != null){
