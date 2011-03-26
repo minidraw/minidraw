@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -11,6 +12,10 @@ import java.awt.Graphics;
  * explained below.
  */
 public abstract class TwoEndShape extends Shape{
+
+public TwoEndShape(Color c) {
+		super(c);
+	}
 
 /**
    * Facilitates drawing an outline as the user drags the mouse.

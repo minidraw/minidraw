@@ -44,7 +44,7 @@ public class FreehandTool extends Tool {
    */
   public void mousePressed(MouseEvent e)  {    
     startingMousePosition = e.getPoint();
-    shape = new FreehandShape(canvas);
+    shape = new FreehandShape(canvas, canvas.getpenColor());
     shape.addPoint(startingMousePosition);
   }
 

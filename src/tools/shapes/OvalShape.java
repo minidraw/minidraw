@@ -1,5 +1,6 @@
 package tools.shapes;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -7,6 +8,10 @@ import java.awt.Graphics;
  */
 public class OvalShape extends TwoEndShape {
 	
+public OvalShape(Color c) {
+		super(c);
+	}
+
 /* (non-Javadoc)
    * 
    * Defines how to draw the oval bounded by the starting and ending points.
@@ -42,7 +47,18 @@ public class OvalShape extends TwoEndShape {
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
 }
   
-  public void redraw(Graphics g){
+  public void redraw(Graphics g, Color c){
+	  if ( c != null ) outlineColor = c;
+	  g.setColor(outlineColor);
+	  g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+	  g.setColor(canvas.getpenColor());
+  }
+  
+  @Override
+  public void redraw(Graphics g, int x, int y){
+	  shapeX = shapeX+x;
+	  shapeY = shapeY+y;
+	  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 	  g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
   }
   
@@ -73,10 +89,5 @@ public class OvalShape extends TwoEndShape {
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
   }
 
-@Override
-public void redraw(Graphics g, int x, int y) {
-	// TODO Auto-generated method stub
-	
-}
 
 }// end public class OvalShape extends Tool

@@ -36,6 +36,15 @@ public class ShapeList extends Vector<Shape>{
 		return foundShape;
 	}
 	
+	public Vector<Shape> allSelected(){
+		Vector<Shape> list = new Vector<Shape>();
+		for (Shape shape : this ){
+			if (shape.isSelected())
+				list.add(shape);
+		}
+		return list;
+	}
+	
 	public Vector<Shape> intersecting(Shape s){	
 		return s.getBounds().findIntersectingShapes(this);
 	}

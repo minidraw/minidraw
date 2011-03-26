@@ -55,6 +55,11 @@ public class ToolController extends AbstractAction {
    * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
    */
   public void actionPerformed(ActionEvent e) {
+	  // Why? Because I could care less, just see the init :)
+	  if ( enabled && tool == null ) {
+		  canvas.deselectAll(true);
+		  return;
+	  }
     canvas.setcurrentTool(tool);
   }
 }// end public class ToolController extends AbstractAction
