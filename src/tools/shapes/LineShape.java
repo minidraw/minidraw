@@ -90,6 +90,8 @@ public void redraw(Graphics g, Color c) {
 }
 
 public void redraw(Graphics g, int x, int y){
+	erase(g);
 	  g.drawLine(x, y, shapeX, shapeY);
+	  if ( selected ) drawBounds(g);
 }
 }// end public class LineShape extends TwoEndShape

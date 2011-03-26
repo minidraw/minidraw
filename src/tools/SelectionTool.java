@@ -19,6 +19,8 @@ import app.DrawingCanvas;
  * deselected.
  */
 public class SelectionTool extends Tool {
+	private enum State { DRAGGED };
+	protected State state;
 	protected DrawingCanvas canvas;
 	protected Point clickValue;
 
@@ -35,22 +37,7 @@ public class SelectionTool extends Tool {
 	 * Press to enter selection state
 	 */
 	public void mousePressed(MouseEvent e){
-		Shape selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
-		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		clickValue = e.getPoint();
-		if ( selectedShape != null ){
-			if ( !selectedShape.isSelected() )
-				selectedShape.select(iBGraphics, true);
-			else
-				selectedShape.select(iBGraphics, false);
-			iBGraphics.setXORMode(Color.lightGray);
-			iBGraphics.setColor(Color.white);
-			selectedShape.redraw(iBGraphics,0,0);
-		} else {
-			canvas.setcurrentTool(this);
-		}
-		
-		canvas.repaint();
 	}
 	
 	/* (non-Javadoc)
@@ -58,6 +45,7 @@ public class SelectionTool extends Tool {
 	 * Drags the selected shapes
 	 */
 	public void mouseDragged(MouseEvent e){
+		state = State.DRAGGED;
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		Vector<Shape> shapes = canvas.getDrawnShapes().allSelected();
 		
@@ -82,19 +70,30 @@ public class SelectionTool extends Tool {
 	}
 	
 	public void mouseReleased(MouseEvent e){
+		Shape selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 	    iBGraphics.setPaintMode();
 	    iBGraphics.setColor(canvas.getpenColor());
 	    Vector<Shape> shapes = canvas.getDrawnShapes().allSelected();
 	   
 	    for( Shape shape : shapes ){
-	    	shape.redraw(iBGraphics, 0, 0);
-	    }
-	    iBGraphics.setPaintMode();
-	    for( Shape shape : shapes ){
 	    	shape.redraw(iBGraphics, shape.outlineColor);
 	    }
 	    
+	    if ( state == null ){
+		    if ( selectedShape != null ){
+				if ( !selectedShape.isSelected() )
+					selectedShape.select(iBGraphics, true);
+				else
+					selectedShape.select(iBGraphics, false);
+				iBGraphics.setXORMode(Color.lightGray);
+				iBGraphics.setColor(Color.white);
+			} else {
+				canvas.setcurrentTool(this);
+			}
+	    }
+	    
+	    state = null;
 	    canvas.repaint();
 	}
 }

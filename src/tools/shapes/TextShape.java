@@ -36,7 +36,9 @@ public class TextShape extends Shape{
 	  public void redraw(Graphics g, int x, int y){
 		  shapeX = shapeX+x;
 		  shapeY = shapeY+y;
+		  erase(g);
 		  g.drawString(text, shapeX+3, shapeY+19);
+		  if ( selected ) drawBounds(g);
 	  }
 
 	public void updateText(StringBuffer txt) {

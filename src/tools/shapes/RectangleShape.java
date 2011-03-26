@@ -88,7 +88,18 @@ public void redraw(Graphics g, Color c) {
 public void redraw(Graphics g, int x, int y){
 	shapeX = shapeX+x;
 	shapeY = shapeY+y;
+	erase(g);
 	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 	g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	if ( selected ) drawBounds(g);
+}
+
+protected void drawBounds(Graphics g){
+	g.setColor(Color.BLACK);
+	g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
+	g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
+	g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+	g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+	g.setColor(canvas.getpenColor());
 }
 }// end public class RectangleShape extends TwoEndShape

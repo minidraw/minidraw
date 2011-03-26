@@ -62,12 +62,14 @@ public class FreehandShape extends Shape {
 	  public void redraw(Graphics g, int x, int y){
 		  shapeX = shapeX+x;
 		  shapeY = shapeY+y;
+		  erase(g);
 		  points.set(0, new Point(points.get(0).x+x, points.get(0).y+y));
 		  for ( int i = 1; i <  points.size(); i++ ){
 			  Point currPoint = points.get(i);
 			  points.set(i, new Point(currPoint.x+x, currPoint.y+y));
 			  draw(g, currPoint.x, currPoint.y, points.get(i-1).x, points.get(i-1).y);
 		  }
+		  if ( selected ) drawBounds(g);
 	  }
 
 }
