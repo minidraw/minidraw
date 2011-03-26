@@ -63,6 +63,8 @@ public class FreehandShape extends Shape {
 		  shapeX = shapeX+x;
 		  shapeY = shapeY+y;
 		  erase(g);
+		  System.out.println(bounds);
+		  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 		  points.set(0, new Point(points.get(0).x+x, points.get(0).y+y));
 		  for ( int i = 1; i <  points.size(); i++ ){
 			  Point currPoint = points.get(i);
