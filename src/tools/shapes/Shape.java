@@ -2,6 +2,7 @@ package tools.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.Vector;
 
 import app.DrawingCanvas;
@@ -98,4 +99,10 @@ public abstract class Shape {
 	 * @param y
 	 */
 	abstract public void redraw(Graphics g, int x, int y);
+	/**
+	 * UPDATES WITH THE POINT !!
+	 * @param g
+	 * @param p
+	 */
+	abstract public void redraw(Graphics g, Point p);
 }

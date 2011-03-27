@@ -2,6 +2,7 @@ package tools.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 /**
  * Defines the drawing behavior for drawing an oval.
@@ -88,6 +89,38 @@ public OvalShape(Color c) {
     }
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
   }
+
+@Override
+public void redraw(Graphics g, Point p) {
+	if( p.y < shapeY && p.x < shapeX){
+		shapeX = p.x;
+		shapeY = p.y;
+		shapeHeight = shapeY - p.y + shapeHeight;
+		shapeWidth = shapeX - p.x + shapeWidth;
+	}
+	  
+	else if( p.x < shapeX ){
+		shapeX = p.x;
+		shapeHeight = p.y - shapeY;
+		shapeWidth = shapeX - p.x + shapeWidth;
+	}
+	  
+	else if( p.y < shapeY ){
+		shapeY = p.y;
+		shapeHeight = shapeY - p.y + shapeHeight;
+		shapeWidth = p.x - shapeX;
+	}
+	
+	else{
+		shapeHeight = p.y - shapeX;
+		shapeWidth = p.x - shapeY;
+	}
+	
+	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+    g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+   
+	
+}
 
 
 }// end public class OvalShape extends Tool

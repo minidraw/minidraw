@@ -2,6 +2,7 @@ package tools.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 
 /**
@@ -96,5 +97,36 @@ public void redraw(Graphics g, int x, int y){
 @Override
 public void redraw(Graphics g, int x, int y) {
 	g.drawLine(lineStartX+x, lineStartY+y, lineEndX+x, lineEndY+y);
+}
+
+@Override
+public void redraw(Graphics g, Point p) {
+	if( p.y < shapeY && p.x < shapeX){
+		shapeX = p.x;
+		shapeY = p.y;
+		shapeHeight = shapeY - p.y + shapeHeight;
+		shapeWidth = shapeX - p.x + shapeWidth;
+	}
+	  
+	else if( p.x < shapeX ){
+		shapeX = p.x;
+		shapeHeight = p.y - shapeY;
+		shapeWidth = shapeX - p.x + shapeWidth;
+	}
+	  
+	else if( p.y < shapeY ){
+		shapeY = p.y;
+		shapeHeight = shapeY - p.y + shapeHeight;
+		shapeWidth = p.x - shapeX;
+	}
+	
+	else{
+		shapeHeight = p.y - shapeX;
+		shapeWidth = p.x - shapeY;
+	}
+	
+	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+    g.drawLine(lineStartX, lineStartY, lineEndX, lineEndY);
+	
 }
 }// end public class LineShape extends TwoEndShape

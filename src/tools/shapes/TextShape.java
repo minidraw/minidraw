@@ -2,6 +2,7 @@ package tools.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 public class TextShape extends Shape{
 
@@ -47,4 +48,10 @@ public class TextShape extends Shape{
 	}
 
 	public String getText(){return text;}
+
+	@Override
+	public void redraw(Graphics g, Point p) {
+		// TODO Auto-generated method stub
+		
+	}
 }

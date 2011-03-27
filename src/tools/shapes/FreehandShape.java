@@ -71,5 +71,11 @@ public class FreehandShape extends Shape {
 		}
 	}
 
+	@Override
+	public void redraw(Graphics g, Point p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
