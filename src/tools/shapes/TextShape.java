@@ -37,6 +37,7 @@ public class TextShape extends Shape{
 		  shapeX = shapeX+x;
 		  shapeY = shapeY+y;
 		  erase(g);
+		  bounds.update(shapeX, shapeY, bounds.getWidth(), bounds.getHeight());
 		  g.drawString(text, shapeX+3, shapeY+19);
 		  if ( selected ) drawBounds(g);
 	  }

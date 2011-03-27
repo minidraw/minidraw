@@ -48,14 +48,15 @@ public class SelectionTool extends Tool {
 		state = State.DRAGGED;
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		Vector<Shape> shapes = canvas.getDrawnShapes().allSelected();
+		//shapes.add(canvas.objectAt(e.getPoint().x, e.getPoint().y));
 		
 		for ( Shape shape : shapes ){
 			shape.redraw(iBGraphics, 0,0);
 			int shape_x = shape.getBounds().getX();
 			int shape_y = shape.getBounds().getY();
 			// {x,y}_offset: the offset from the (x,y) of the shape and the source of the click
-			int x_offset = Math.abs(clickValue.x - shape_x);
-			int y_offset = Math.abs(clickValue.y - shape_y);
+			int x_offset = clickValue.x - shape_x;
+			int y_offset = clickValue.y - shape_y;
 			// d{x,y}: the distance the shape moves from the offset
 			int dx = e.getPoint().x - (shape_x+x_offset);
 			int dy = e.getPoint().y - (shape_y+y_offset);
