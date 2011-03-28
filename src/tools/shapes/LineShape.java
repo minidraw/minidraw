@@ -17,6 +17,7 @@ public class LineShape extends TwoEndShape {
 
 	private int lineEndX;
 	private int lineEndY;
+	private float slope;
 
 
 	/**
@@ -30,39 +31,16 @@ public class LineShape extends TwoEndShape {
 		shapeY = y0;
 		lineEndX = x1;
 		lineEndY = y1;
-
-		if( y1 < y0 && x1 < x0){
-			shapeX = x1;
-			shapeY = y1;
-			shapeHeight = y0 - y1;
-			shapeWidth = x0 - x1;
+		
+		slope = (float)(shapeY - lineEndY) / (float)(shapeX - lineEndX);
+		shapeHeight = Math.abs(y0 - y1);
+		shapeWidth = Math.abs(x0 - x1);
+		if ( slope >= 0 ){
+			bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		} else {
+			bounds.update(shapeX-(x0-x1), shapeY, shapeWidth, shapeHeight);
 		}
-
-		else if( x1 < x0 ){
-			shapeX = x1;
-			shapeY = y0;
-			shapeHeight = y1 - y0;
-			shapeWidth = x0 - x1;
-		}
-
-		else if( y1 < y0 ){
-			shapeX = x0;
-			shapeY = y1;
-			shapeHeight = y0 - y1;
-			shapeWidth = x1 - x0;
-		}
-
-
-		else{
-			shapeX = x0;
-			shapeY = y0;
-			shapeHeight = y1-y0;
-			shapeWidth = x1-x0;
-		}
-
-		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
-
 	}
 
 	/**
@@ -74,23 +52,29 @@ public class LineShape extends TwoEndShape {
 	public void drawOutline(Graphics g, int x0, int y0, int x1, int y1) {
 		shapeX = x0;
 		shapeY = y0;
-		shapeHeight = y1;
-		shapeWidth = x1;
-		g.drawLine(shapeX, shapeY, shapeWidth, shapeHeight);
+		lineEndY = y1;
+		lineEndX = x1;
+		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
 	}
 
 	public void drawShape(Graphics g, int x0, int y0, int x1, int y1){
 		shapeX = x0;
 		shapeY = y0;
-		shapeWidth = lineEndX = x1;
-		shapeHeight = lineEndY = y1;
+		lineEndX = lineEndX;
+		lineEndY = lineEndY;
+		shapeHeight = y1;
+		shapeWidth = x1;
 		g.setColor(outlineColor);
-		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		slope = (float)(shapeY - lineEndY) / (float)(shapeX - lineEndX);
+		if ( slope >= 0 ){
+			bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		} else {
+			bounds.update(shapeX-(shapeX-lineEndX), shapeY, shapeWidth, shapeHeight);
+		}
 		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
 		g.setColor(canvas.getpenColor());
 		if ( selected ) drawBounds(g);
 	}
-
 
 	@Override
 	public void redraw(Graphics g, Color c) {
@@ -108,9 +92,27 @@ public class LineShape extends TwoEndShape {
 		lineEndX += x;
 		lineEndY += y;
 		erase(g);
-		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		if ( slope >= 0 ){
+			bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		} else {
+			bounds.update(shapeX-(shapeX-lineEndX), shapeY, shapeWidth, shapeHeight);
+		}
 		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
 		g.setColor(canvas.getpenColor());
 		if ( selected ) drawBounds(g);
+	}
+
+	public void drawBounds(Graphics g){
+		g.setColor(Color.BLACK);
+		// Check slope for which way facing to add only 2 bounds.
+		float slope = (float)(shapeY - lineEndY) / (float)(shapeX - lineEndX);
+		if ( slope >= 0 ){
+			g.fillRect(bounds.topLeft.x, bounds.topLeft.y, bounds.topLeft.width, bounds.topLeft.height);
+			g.fillRect(bounds.botRight.x, bounds.botRight.y, bounds.botRight.width, bounds.botLeft.height);
+		} else {
+			g.fillRect(bounds.topRight.x, bounds.topRight.y, bounds.topRight.width, bounds.topRight.height);
+			g.fillRect(bounds.botLeft.x, bounds.botLeft.y, bounds.botLeft.width, bounds.botLeft.height);
+		}
+		g.setColor(canvas.getpenColor());
 	}
 }// end public class LineShape extends TwoEndShape
