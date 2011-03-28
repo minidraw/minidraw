@@ -23,7 +23,7 @@ import tools.TwoEndShapeTool;
  * and any associations.
  */
 @SuppressWarnings("serial")
-public class ObjectDraw3 extends JApplet  {
+public class ObjectDraw4 extends JApplet  {
 
   /* Main Components */
   protected DrawingCanvas canvas;
@@ -34,14 +34,14 @@ public class ObjectDraw3 extends JApplet  {
   protected boolean isApplet = false;
     
   /****< Constructors and Initializers >***************************************/
-  public ObjectDraw3(boolean isApplet) { 
+  public ObjectDraw4(boolean isApplet) { 
     this.isApplet = isApplet;
     if (!isApplet) {
       init();
     }
   }
 
-  public ObjectDraw3() {
+  public ObjectDraw4() {
     /* invoked as Applet */
     this(true);
   }
@@ -212,7 +212,7 @@ try{
     JFrame frame = new JFrame();
     frame.setTitle("MiniDraw Fourth Iteration");
     frame.getContentPane().setLayout(new BorderLayout());
-    frame.getContentPane().add(new ObjectDraw3(false),
+    frame.getContentPane().add(new ObjectDraw4(false),
 			      BorderLayout.CENTER);
     frame.addWindowListener(new AppCloser());
     frame.pack();
