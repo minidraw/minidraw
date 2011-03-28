@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Vector;
 
@@ -7,6 +8,8 @@ import tools.shapes.Shape;
 
 public class Bounds{
 	private Rectangle bounds;
+	public Rectangle topLeft, topRight, botLeft, botRight;
+	private static int BOUNDS_AREA = 7;
 	
 	public boolean contains(int x, int y){
 		if ( bounds.contains(x, y) ) {
@@ -14,6 +17,25 @@ public class Bounds{
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Gives the corner of where the point is contained in
+	 * @param x int for x coord
+	 * @param y int for y coord
+	 * @return Direction corner which is being clicked
+	 */
+	public Direction containsInOuterBounds(int x, int y){
+		Point p = new Point(x, y);
+		if ( topLeft.contains(p) )
+			return Direction.TOP_LEFT;
+		else if ( topRight.contains(p) )
+			return Direction.TOP_RIGHT;
+		else if ( botLeft.contains(p) )
+			return Direction.BOTTOM_LEFT;
+		else if ( botRight.contains(p) )
+			return Direction.BOTTOM_RIGHT;
+		return null;
 	}
 
 	public int getX(){
@@ -50,6 +72,10 @@ public class Bounds{
 	 */
 	public void update(int x, int y, int width, int height) {
 		bounds = new Rectangle(x, y, width, height);
+		topLeft = new Rectangle(bounds.x-1, bounds.y-1, BOUNDS_AREA, BOUNDS_AREA);
+		topRight = new Rectangle(bounds.x+bounds.width-1, bounds.y-1, BOUNDS_AREA, BOUNDS_AREA);
+		botLeft = new Rectangle(bounds.x-1, bounds.y+bounds.height-1, BOUNDS_AREA, BOUNDS_AREA);
+		botRight = new Rectangle(bounds.x+bounds.width-1, bounds.y+bounds.height-1, BOUNDS_AREA, BOUNDS_AREA);
 	}
 	
 	/**

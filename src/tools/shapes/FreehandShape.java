@@ -19,6 +19,7 @@ public class FreehandShape extends Shape {
 		shapeX = Integer.MAX_VALUE;
 		shapeY = Integer.MAX_VALUE;
 		points = new Vector<Point>();
+		canResize = false;
 	}
 
 	@Override
@@ -58,37 +59,37 @@ public class FreehandShape extends Shape {
 	public void addPoint(Point p){
 		points.add(p);
 	}
-
-	@Override
-	public void redraw(Graphics g, Color c) {
-		if ( c != null ) outlineColor = c;
+	
+	public void drawShape(Graphics g, int x, int y, int width, int height){
 		g.setColor(outlineColor);
+		shapeX = x;
+		shapeY = y;
+		shapeWidth = width;
+		shapeHeight = height;
+		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 		for ( int i = 1; i < points.size(); i++ ){
 			draw(g, points.get(i).x, points.get(i).y, points.get(i-1).x, points.get(i-1).y);
 		}
-		g.setColor(canvas.getpenColor());
-	}
 
+		if ( selected ) drawBounds(g);
+	  }
 	
-	  public void redraw(Graphics g, int x, int y){
-		  shapeX = shapeX+x;
-		  shapeY = shapeY+y;
+	  public void redraw(Graphics g, int dx, int dy){
+		  g.setColor(outlineColor);
+		  shapeX = shapeX+dx;
+		  shapeY = shapeY+dy;
 		  erase(g);
 		  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-		  points.set(0, new Point(points.get(0).x+x, points.get(0).y+y));
+		  points.set(0, new Point(points.get(0).x+dx, points.get(0).y+dy));
 		  for ( int i = 1; i <  points.size(); i++ ){
 			  Point currPoint = points.get(i);
-			  points.set(i, new Point(currPoint.x+x, currPoint.y+y));
+			  points.set(i, new Point(currPoint.x+dx, currPoint.y+dy));
 			  currPoint = points.get(i);
 			  draw(g, currPoint.x, currPoint.y, points.get(i-1).x, points.get(i-1).y);
 		  }
+		  g.setColor(canvas.getpenColor());
 		  if ( selected ) drawBounds(g);
 	  }
 
-	@Override
-	public void redraw(Graphics g, Point p) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -2,7 +2,6 @@ package tools.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 
 
 /**
@@ -15,123 +14,103 @@ public class LineShape extends TwoEndShape {
 	public LineShape(Color c) {
 		super(c);
 	}
-	
+
 	private int lineEndX;
 	private int lineEndY;
-	
 
-/**
-   * 
-   * Draws a simple line from the starting to ending point.
-   * 
-   * @see tools.shapes.TwoEndShape#draw(java.awt.Graphics, int, int, int, int)
-   */
-  public void draw(Graphics g, int x0, int y0, int x1, int y1) {
-	shapeX = x0;
-	shapeY = y0;
-	lineEndX = x1;
-	lineEndY = y1;
-	  
-	if( y1 < y0 && x1 < x0){
-		shapeX = x1;
-		shapeY = y1;
-		shapeHeight = y0 - y1;
-		shapeWidth = x0 - x1;
-	}
-	  
-	else if( x1 < x0 ){
-		shapeX = x1;
-		shapeY = y0;
-		shapeHeight = y1 - y0;
-		shapeWidth = x0 - x1;
-	}
-	  
-	else if( y1 < y0 ){
-		shapeX = x0;
-		shapeY = y1;
-		shapeHeight = y0 - y1;
-		shapeWidth = x1 - x0;
-	}
-	  
-	
-	else{
+
+	/**
+	 * 
+	 * Draws a simple line from the starting to ending point.
+	 * 
+	 * @see tools.shapes.TwoEndShape#draw(java.awt.Graphics, int, int, int, int)
+	 */
+	public void draw(Graphics g, int x0, int y0, int x1, int y1) {
 		shapeX = x0;
 		shapeY = y0;
-		shapeHeight = y1-y0;
-		shapeWidth = x1-x0;
-	}
-	
-	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-    g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
+		lineEndX = x1;
+		lineEndY = y1;
 
-  }
+		if( y1 < y0 && x1 < x0){
+			shapeX = x1;
+			shapeY = y1;
+			shapeHeight = y0 - y1;
+			shapeWidth = x0 - x1;
+		}
 
-  /**
-   * 
-   * Draws the outline of a line from the starting to ending point.
-   * 
-   * @see tools.shapes.TwoEndShape#drawOutline(java.awt.Graphics, int, int, int, int)
-   */
-  public void drawOutline(Graphics g, int x0, int y0, int x1, int y1) {
-	shapeX = x0;
-	shapeY = y0;
-	shapeHeight = y1;
-	shapeWidth = x1;
-	  g.drawLine(shapeX, shapeY, shapeWidth, shapeHeight);
-  }
+		else if( x1 < x0 ){
+			shapeX = x1;
+			shapeY = y0;
+			shapeHeight = y1 - y0;
+			shapeWidth = x0 - x1;
+		}
 
-@Override
-public void redraw(Graphics g, Color c) {
-	if ( c != null ) outlineColor = c;
-	g.setColor(outlineColor);
-    g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
-    g.setColor(canvas.getpenColor());
-}
-/*
-public void redraw(Graphics g, int x, int y){
-	shapeX += x;
-	shapeY += y;
-	lineEndX += x;
-	lineEndY += y;
-	erase(g);
-	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-	g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
-	if ( selected ) drawBounds(g);
-}
-*/
-@Override
-public void redraw(Graphics g, int x, int y) {
-	g.drawLine(shapeX+x, shapeY+y, lineEndX+x, lineEndY+y);
-}
+		else if( y1 < y0 ){
+			shapeX = x0;
+			shapeY = y1;
+			shapeHeight = y0 - y1;
+			shapeWidth = x1 - x0;
+		}
 
-@Override
-public void redraw(Graphics g, Point p) {
-	if( p.y < shapeY && p.x < shapeX){
-		shapeX = p.x;
-		shapeY = p.y;
-		shapeHeight = shapeY - p.y + shapeHeight;
-		shapeWidth = shapeX - p.x + shapeWidth;
+
+		else{
+			shapeX = x0;
+			shapeY = y0;
+			shapeHeight = y1-y0;
+			shapeWidth = x1-x0;
+		}
+
+		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
+
 	}
-	  
-	else if( p.x < shapeX ){
-		shapeX = p.x;
-		shapeHeight = p.y - shapeY;
-		shapeWidth = shapeX - p.x + shapeWidth;
+
+	/**
+	 * 
+	 * Draws the outline of a line from the starting to ending point.
+	 * 
+	 * @see tools.shapes.TwoEndShape#drawOutline(java.awt.Graphics, int, int, int, int)
+	 */
+	public void drawOutline(Graphics g, int x0, int y0, int x1, int y1) {
+		shapeX = x0;
+		shapeY = y0;
+		shapeHeight = y1;
+		shapeWidth = x1;
+		g.drawLine(shapeX, shapeY, shapeWidth, shapeHeight);
 	}
-	  
-	else if( p.y < shapeY ){
-		shapeY = p.y;
-		shapeHeight = shapeY - p.y + shapeHeight;
-		shapeWidth = p.x - shapeX;
+
+	public void drawShape(Graphics g, int x0, int y0, int x1, int y1){
+		shapeX = x0;
+		shapeY = y0;
+		shapeWidth = lineEndX = x1;
+		shapeHeight = lineEndY = y1;
+		g.setColor(outlineColor);
+		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
+		g.setColor(canvas.getpenColor());
+		if ( selected ) drawBounds(g);
 	}
-	
-	else{
-		shapeHeight = p.y - shapeX;
-		shapeWidth = p.x - shapeY;
+
+
+	@Override
+	public void redraw(Graphics g, Color c) {
+		if ( c != null ) outlineColor = c;
+		g.setColor(outlineColor);
+		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
+		g.setColor(canvas.getpenColor());
+		if ( selected ) drawBounds(g);
 	}
-	
-	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-    g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
-	
-}
+
+	public void redraw(Graphics g, int x, int y){
+		g.setColor(outlineColor);
+		shapeX += x;
+		shapeY += y;
+		lineEndX += x;
+		lineEndY += y;
+		erase(g);
+		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
+		g.setColor(canvas.getpenColor());
+		if ( selected ) drawBounds(g);
+	}
 }// end public class LineShape extends TwoEndShape

@@ -2,16 +2,15 @@ package tools.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.Vector;
 
-import app.DrawingCanvas;
-
 import util.Bounds;
+import util.Direction;
+import app.DrawingCanvas;
 
 public abstract class Shape {
 	protected Bounds bounds;
-	protected boolean selected;
+	protected boolean selected, canResize;
 	protected DrawingCanvas canvas;
 	public Color outlineColor;
 	protected int shapeX, shapeY, shapeHeight, shapeWidth;
@@ -21,6 +20,7 @@ public abstract class Shape {
 		selected = false;
 		bounds = new Bounds();
 		outlineColor = c;
+		canResize = true;
 	}
 	
 	public Shape(DrawingCanvas c, Color co){
@@ -66,10 +66,10 @@ public abstract class Shape {
 	public void drawBounds(Graphics g){
 		g.setColor(Color.BLACK);
 		g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth(), bounds.getHeight());
-		g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
-		g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
-		g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
-		g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+		g.fillRect(bounds.topLeft.x, bounds.topLeft.y, bounds.topLeft.width, bounds.topLeft.height);
+		g.fillRect(bounds.topRight.x, bounds.topRight.y, bounds.topRight.width, bounds.topRight.height);
+		g.fillRect(bounds.botLeft.x, bounds.botLeft.y, bounds.botLeft.width, bounds.botLeft.height);
+		g.fillRect(bounds.botRight.x, bounds.botRight.y, bounds.botRight.width, bounds.botLeft.height);
 		g.setColor(canvas.getpenColor());
 	}
 	
@@ -81,13 +81,17 @@ public abstract class Shape {
 		return bounds.hashCode();
 	}
 	
+	/**
+	 * Erases the shape and redraws the intersecting ones.
+	 * @param g Graphics current graphics object
+	 */
 	public void erase(Graphics g){
 		// Time to grab all intersecting and children shapes 
 		Vector<Shape> collidingShapes = canvas.getDrawnShapes().intersecting(this);
 		collidingShapes.remove(this); // Take out me
 		
 		// Erase everyone!
-		g.clearRect(bounds.getX()-5, bounds.getY()-5, bounds.getWidth()+10, bounds.getHeight()+10);
+		g.clearRect(bounds.getX()-5, bounds.getY()-5, bounds.getWidth()+11, bounds.getHeight()+11);
 		
 		// Draw everyone, keeping their selection state
 		for ( Shape shape : collidingShapes ){
@@ -98,20 +102,55 @@ public abstract class Shape {
 		}
 	}
 
-	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
+	/**
+	 * Expands the shape by the given direction, width, and height differences
+	 * @param g Graphics current graphics context
+	 * @param direction Direction direction of expansion
+	 * @param dx int difference in the width
+	 * @param dy int difference in the height
+	 */
 
-	abstract public void redraw(Graphics g, Color c);
+	public void expand(Graphics g, Direction direction, int dx, int dy){
+		if ( canResize ){
+			erase(g);
+			switch ( direction ){
+			case TOP_LEFT:
+				drawShape(g, shapeX-dx, shapeY-dy, shapeWidth+dx, shapeHeight+dy);
+				break;
+			case TOP_RIGHT:
+				drawShape(g, shapeX, shapeY-dy, shapeWidth-dx, shapeHeight+dy);
+				break;
+			case BOTTOM_LEFT:
+				drawShape(g, shapeX-dx, shapeY, shapeWidth+dx, shapeHeight-dy);
+				break;
+			case BOTTOM_RIGHT:
+				drawShape(g, shapeX, shapeY, shapeWidth-dx, shapeHeight-dy);
+				break;
+			}
+		}
+	}
+	
 	/**
-	 * UPDATES WITH THE DX AND DY !!
+	 * Updates the outline color of the shape
 	 * @param g
-	 * @param x
-	 * @param y
+	 * @param c Color new outline color
 	 */
-	abstract public void redraw(Graphics g, int x, int y);
+	public void redraw(Graphics g, Color c){
+		if ( c != null ) outlineColor = c;
+		drawShape(g, shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+
 	/**
-	 * UPDATES WITH THE POINT !!
+	 * Updates the shapes x and y coorindate
 	 * @param g
-	 * @param p
+	 * @param x int dx
+	 * @param y int dy
 	 */
-	abstract public void redraw(Graphics g, Point p);
+	public void redraw(Graphics g, int dx, int dy){
+		erase(g);
+		drawShape(g, shapeX+dx, shapeY+dy, shapeWidth, shapeHeight);
+	}
+	 
+	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
+	abstract public void drawShape(Graphics g, int x, int y, int width, int height);
 }
