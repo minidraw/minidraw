@@ -33,13 +33,23 @@ public class FreehandShape extends Shape {
 
 		maxX = ( px1 > maxX ) ? px1 : maxX;
 		shapeX = ( px1 < shapeX ) ? px1 : shapeX;	// We want a smaller x
-
+		
+		// If were moving backwards record it
+		if ( shapeX == px1 ){
+			maxX = maxX - dx;
+		}
+		
 		maxY = ( py1 > maxY ) ? py1 : maxY;
-		shapeY = ( py1 < shapeY ) ? py1 : shapeY;	// And a larger y
-
-		shapeHeight = maxY - shapeY;
-		shapeWidth = maxX - shapeX;
-
+		shapeY = ( py1 < shapeY ) ? py1 : shapeY;	// And a smaller y
+		
+		// If were moving backwards record it
+		if ( shapeY == py1 ){
+			maxY = maxY - dy;
+		}
+		
+		shapeHeight = Math.abs(maxY - shapeY);
+		shapeWidth = Math.abs(maxX - shapeX);
+		
 		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 
 		canvas.repaint(x0, y0, dx, dy);
@@ -59,23 +69,26 @@ public class FreehandShape extends Shape {
 		g.setColor(canvas.getpenColor());
 	}
 
-	@Override
-	public void redraw(Graphics g, int x, int y){
-		shapeX = shapeX+x;
-		shapeY = shapeY+y;
-		points.set(0, new Point(points.get(0).x+x, points.get(0).y+y));
-		for ( int i = 1; i <  points.size(); i++ ){
-			Point currPoint = points.get(i);
-			points.set(i, new Point(currPoint.x+x, currPoint.y+y));
-			draw(g, currPoint.x, currPoint.y, points.get(i-1).x, points.get(i-1).y);
-		}
-	}
+	
+	  public void redraw(Graphics g, int x, int y){
+		  shapeX = shapeX+x;
+		  shapeY = shapeY+y;
+		  erase(g);
+		  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
+		  points.set(0, new Point(points.get(0).x+x, points.get(0).y+y));
+		  for ( int i = 1; i <  points.size(); i++ ){
+			  Point currPoint = points.get(i);
+			  points.set(i, new Point(currPoint.x+x, currPoint.y+y));
+			  currPoint = points.get(i);
+			  draw(g, currPoint.x, currPoint.y, points.get(i-1).x, points.get(i-1).y);
+		  }
+		  if ( selected ) drawBounds(g);
+	  }
 
 	@Override
 	public void redraw(Graphics g, Point p) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

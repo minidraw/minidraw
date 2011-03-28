@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ public class ControlPanelView extends JPanel {
   protected DrawingCanvas canvas;
   protected ControlPanelController CPcontroller;
   protected JButton clearButton, eraseButton;
+  protected JCheckBox fillBox;
   protected JComboBox comboBox;
   
   /****< Constructors >********************************************************/
@@ -46,6 +48,9 @@ public class ControlPanelView extends JPanel {
     comboBox.addItem("green");
     comboBox.addItem("red");
     add(comboBox);
+    add(new JLabel("Fill Object"));
+    fillBox = new JCheckBox();
+    add(fillBox);
     ControlPanelController CPcontroller = createControlPanelController();
     addControlPanelListener(CPcontroller);
   }
@@ -80,6 +85,8 @@ public class ControlPanelView extends JPanel {
       clearButton.addActionListener((ActionListener)listener);
       clearButton.setActionCommand("clear");
       comboBox.addItemListener((ItemListener)listener);
+      fillBox.addActionListener((ActionListener)listener);
+      fillBox.setActionCommand("filled");
 	  } else {
 	    throw new IllegalArgumentException();
     }// end argument check

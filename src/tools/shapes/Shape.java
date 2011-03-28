@@ -15,6 +15,7 @@ public abstract class Shape {
 	protected DrawingCanvas canvas;
 	public Color outlineColor;
 	protected int shapeX, shapeY, shapeHeight, shapeWidth;
+	protected boolean filled;
 
 	public Shape(Color c){
 		selected = false;
@@ -29,6 +30,14 @@ public abstract class Shape {
 	
 	public void setCanvas(DrawingCanvas c){
 		canvas = c;
+	}
+	
+	public boolean getFilled(){
+		return filled;
+	}
+	
+	public void setFilled(boolean f){
+		filled = f;
 	}
 
 	public Bounds getBounds(){

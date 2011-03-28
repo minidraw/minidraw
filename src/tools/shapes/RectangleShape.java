@@ -45,7 +45,13 @@ public RectangleShape(Color c) {
       shapeY = y1;
       shapeHeight = (y0-y1)+1;
     }
-    g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+    if (canvas.getFilled() == true){
+		g.fillRect(shapeX, shapeY, shapeWidth, shapeHeight);
+		setFilled(true);
+	}
+	else{
+	    g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}
   }
   
   /* (non-Javadoc)
@@ -81,8 +87,13 @@ public RectangleShape(Color c) {
 public void redraw(Graphics g, Color c) {
 	if ( c != null ) outlineColor = c;
 	g.setColor(outlineColor);
-	 g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
-	 g.setColor(canvas.getpenColor());
+	if (getFilled() == true){
+		g.fillRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+	else{
+	    g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}	 
+	g.setColor(canvas.getpenColor());
 	
 }
 
@@ -90,8 +101,24 @@ public void redraw(Graphics g, Color c) {
 public void redraw(Graphics g, int x, int y){
 	shapeX = shapeX+x;
 	shapeY = shapeY+y;
+	erase(g);
 	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-	g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	if (getFilled() == true){
+		g.fillRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+	else{
+	    g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}	 
+	if ( selected ) drawBounds(g);
+}
+
+public void drawBounds(Graphics g){
+	g.setColor(Color.BLACK);
+	g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
+	g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
+	g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+	g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+	g.setColor(canvas.getpenColor());
 }
 
 @Override
@@ -121,8 +148,12 @@ public void redraw(Graphics g, Point p) {
 	}
 	
 	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-	g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
-
+	if (getFilled() == true){
+		g.fillRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+	else{
+	    g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	}	 
     	
 }
 }// end public class RectangleShape extends TwoEndShape
