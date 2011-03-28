@@ -7,6 +7,7 @@ public class TextShape extends Shape{
 	
 	public TextShape(Color c) {
 		super(c);
+		canResize = false;
 	}
 
 	private String text;
@@ -25,30 +26,22 @@ public class TextShape extends Shape{
 		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 	}
 
-	@Override
-	public void redraw(Graphics g, Color c) {
-		if ( c != null ) outlineColor = c;
-		g.setColor(outlineColor);
-		g.drawString(text, shapeX+3, shapeY+19);	
-		g.setColor(canvas.getpenColor());
-	}
-	
-	  public void redraw(Graphics g, int x, int y){
-		  g.setColor(outlineColor);
-		  shapeX = shapeX+x;
-		  shapeY = shapeY+y;
-		  erase(g);
-		  bounds.update(shapeX, shapeY, bounds.getWidth(), bounds.getHeight());
-		  g.drawString(text, shapeX+3, shapeY+19);
-		  g.setColor(canvas.getpenColor());
-		  if ( selected ) drawBounds(g);
-	  }
-
 	public void updateText(StringBuffer txt) {
 		if(txt != null){
 			text = txt.toString();
 		}
 	}
+	 
+	public void drawShape(Graphics g, int x, int y, int width, int height){
+		g.setColor(outlineColor);
+		shapeX = x;
+		shapeY = y;
+		shapeWidth = width;
+		shapeHeight = height;
+		bounds.update(shapeX, shapeY, bounds.getWidth(), bounds.getHeight());
+		g.drawString(text, shapeX+3, shapeY+19);
+		if ( selected ) drawBounds(g);
+	  }
 
 	public String getText(){return text;}
 }

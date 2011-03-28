@@ -43,9 +43,9 @@ public class SelectionTool extends Tool {
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		
 		clickValue = e.getPoint();
-		currentShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
+		currentShape = canvas.objectAt(e.getPoint().x-2, e.getPoint().y-2);
 		if ( currentShape != null ){
-			if ( ( direction = currentShape.getBounds().containsInOuterBounds(e.getPoint().x+5, e.getPoint().y+5)) != null ){
+			if ( ( direction = currentShape.getBounds().containsInOuterBounds(e.getPoint().x, e.getPoint().y)) != null ){
 				state = State.RESIZING;
 			}
 		}

@@ -9,6 +9,7 @@ import tools.shapes.Shape;
 public class Bounds{
 	private Rectangle bounds;
 	public Rectangle topLeft, topRight, botLeft, botRight;
+	private static int BOUNDS_AREA = 7;
 	
 	public boolean contains(int x, int y){
 		if ( bounds.contains(x, y) ) {
@@ -71,10 +72,10 @@ public class Bounds{
 	 */
 	public void update(int x, int y, int width, int height) {
 		bounds = new Rectangle(x, y, width, height);
-		topLeft = new Rectangle(bounds.x-1, bounds.y-1, 4, 4);
-		topRight = new Rectangle(bounds.x+bounds.width-1, bounds.y-1, 4, 4);
-		botLeft = new Rectangle(bounds.x-1, bounds.y+bounds.height-1, 4, 4);
-		botRight = new Rectangle(bounds.x+bounds.width-1, bounds.y+bounds.height-1, 4, 4);
+		topLeft = new Rectangle(bounds.x-1, bounds.y-1, BOUNDS_AREA, BOUNDS_AREA);
+		topRight = new Rectangle(bounds.x+bounds.width-1, bounds.y-1, BOUNDS_AREA, BOUNDS_AREA);
+		botLeft = new Rectangle(bounds.x-1, bounds.y+bounds.height-1, BOUNDS_AREA, BOUNDS_AREA);
+		botRight = new Rectangle(bounds.x+bounds.width-1, bounds.y+bounds.height-1, BOUNDS_AREA, BOUNDS_AREA);
 	}
 	
 	/**

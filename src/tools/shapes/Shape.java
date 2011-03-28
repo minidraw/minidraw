@@ -11,7 +11,7 @@ import util.Direction;
 
 public abstract class Shape {
 	protected Bounds bounds;
-	protected boolean selected;
+	protected boolean selected, canResize;
 	protected DrawingCanvas canvas;
 	public Color outlineColor;
 	protected int shapeX, shapeY, shapeHeight, shapeWidth;
@@ -20,6 +20,7 @@ public abstract class Shape {
 		selected = false;
 		bounds = new Bounds();
 		outlineColor = c;
+		canResize = true;
 	}
 	
 	public Shape(DrawingCanvas c, Color co){
@@ -101,30 +102,46 @@ public abstract class Shape {
 	 * @param dy int difference in the height
 	 */
 	public void expand(Graphics g, Direction direction, int dx, int dy){
-		redraw(g, 0, 0);
-		switch ( direction ){
-		// If were modifying the top {left, right} we want to update the (x,y) along with the (h,w)
-		case TOP_LEFT:
-			draw(g, shapeX-dx, shapeY-dy, shapeWidth+shapeX, shapeHeight+shapeY);
-			break;
-		case TOP_RIGHT:
-			draw(g, shapeX+dx, shapeY+dy, shapeWidth+shapeX, shapeHeight+shapeY);
-			break;
-		// If were modifying the bottom {left, right} we want to update the (h,w)
-		case BOTTOM_LEFT:
-			break;
-		case BOTTOM_RIGHT:
-			break;
+		if ( canResize ){
+			erase(g);
+			switch ( direction ){
+			case TOP_LEFT:
+				drawShape(g, shapeX-dx, shapeY-dy, shapeWidth+dx, shapeHeight+dy);
+				break;
+			case TOP_RIGHT:
+				drawShape(g, shapeX, shapeY-dy, shapeWidth-dx, shapeHeight+dy);
+				break;
+			case BOTTOM_LEFT:
+				drawShape(g, shapeX-dx, shapeY, shapeWidth+dx, shapeHeight-dy);
+				break;
+			case BOTTOM_RIGHT:
+				drawShape(g, shapeX, shapeY, shapeWidth-dx, shapeHeight-dy);
+				break;
+			}
 		}
 	}
-
-	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
-	abstract public void redraw(Graphics g, Color c);
+	
 	/**
-	 * UPDATES WITH THE DX AND DY !!
+	 * Updates the outline color of the shape
 	 * @param g
-	 * @param x
-	 * @param y
+	 * @param c Color new outline color
 	 */
-	abstract public void redraw(Graphics g, int x, int y);
+	public void redraw(Graphics g, Color c){
+		if ( c != null ) outlineColor = c;
+		drawShape(g, shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+
+	/**
+	 * Updates the shapes x and y coorindate
+	 * @param g
+	 * @param x int dx
+	 * @param y int dy
+	 */
+	public void redraw(Graphics g, int dx, int dy){
+		erase(g);
+		drawShape(g, shapeX+dx, shapeY+dy, shapeWidth, shapeHeight);
+	}
+	 
+	abstract public void draw(Graphics g, int x0, int y0, int x1, int y1);
+	abstract public void drawShape(Graphics g, int x, int y, int width, int height);
 }

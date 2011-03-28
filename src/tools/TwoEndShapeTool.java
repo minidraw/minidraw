@@ -45,9 +45,9 @@ public class TwoEndShapeTool extends Tool {
    * 
    * @see tools.Tool#mousePressed(java.awt.event.MouseEvent)
    */
+@SuppressWarnings("unchecked")
 public void mousePressed(MouseEvent e)  {
     try {
-    	@SuppressWarnings("rawtypes")
 		Constructor construct = k.getConstructor(Color.class);
     	shape = (TwoEndShape) construct.newInstance(canvas.getpenColor());
     	shape.setCanvas(canvas);
