@@ -31,7 +31,7 @@ public class FreehandShape extends Shape {
 		int y0 = Math.min(py0, py1);
 		int dx = Math.abs(px1 - px0)+ 1;
 		int dy = Math.abs(px1 - py0) + 1;
-		
+
 		maxX = ( px1 > maxX ) ? px1 : maxX;
 		shapeX = ( px1 < shapeX ) ? px1 : shapeX;	// We want a smaller x
 		
@@ -52,10 +52,10 @@ public class FreehandShape extends Shape {
 		shapeWidth = Math.abs(maxX - shapeX);
 		
 		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-		
+
 		canvas.repaint(x0, y0, dx, dy);
 	}
-	
+
 	public void addPoint(Point p){
 		points.add(p);
 	}
@@ -70,6 +70,7 @@ public class FreehandShape extends Shape {
 		for ( int i = 1; i < points.size(); i++ ){
 			draw(g, points.get(i).x, points.get(i).y, points.get(i-1).x, points.get(i-1).y);
 		}
+
 		if ( selected ) drawBounds(g);
 	  }
 	
@@ -89,5 +90,6 @@ public class FreehandShape extends Shape {
 		  g.setColor(canvas.getpenColor());
 		  if ( selected ) drawBounds(g);
 	  }
+
 
 }

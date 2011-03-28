@@ -17,6 +17,8 @@ public TwoEndShape(Color c) {
 		super(c);
 	}
 
+
+
 /**
    * Facilitates drawing an outline as the user drags the mouse.
    * 

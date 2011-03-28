@@ -4,10 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Vector;
 
-import app.DrawingCanvas;
-
 import util.Bounds;
 import util.Direction;
+import app.DrawingCanvas;
 
 public abstract class Shape {
 	protected Bounds bounds;
@@ -15,6 +14,7 @@ public abstract class Shape {
 	protected DrawingCanvas canvas;
 	public Color outlineColor;
 	protected int shapeX, shapeY, shapeHeight, shapeWidth;
+	protected boolean filled;
 
 	public Shape(Color c){
 		selected = false;
@@ -30,6 +30,14 @@ public abstract class Shape {
 	
 	public void setCanvas(DrawingCanvas c){
 		canvas = c;
+	}
+	
+	public boolean getFilled(){
+		return filled;
+	}
+	
+	public void setFilled(boolean f){
+		filled = f;
 	}
 
 	public Bounds getBounds(){
@@ -55,7 +63,7 @@ public abstract class Shape {
 		}
 	}
 	
-	protected void drawBounds(Graphics g){
+	public void drawBounds(Graphics g){
 		g.setColor(Color.BLACK);
 		g.drawRect(bounds.getX(), bounds.getY(),bounds.getWidth(), bounds.getHeight());
 		g.fillRect(bounds.topLeft.x, bounds.topLeft.y, bounds.topLeft.width, bounds.topLeft.height);
@@ -83,7 +91,7 @@ public abstract class Shape {
 		collidingShapes.remove(this); // Take out me
 		
 		// Erase everyone!
-		g.clearRect(bounds.getX()-5, bounds.getY()-5, bounds.getWidth()+10, bounds.getHeight()+10);
+		g.clearRect(bounds.getX()-5, bounds.getY()-5, bounds.getWidth()+11, bounds.getHeight()+11);
 		
 		// Draw everyone, keeping their selection state
 		for ( Shape shape : collidingShapes ){
@@ -93,7 +101,7 @@ public abstract class Shape {
 			}
 		}
 	}
-	
+
 	/**
 	 * Expands the shape by the given direction, width, and height differences
 	 * @param g Graphics current graphics context
@@ -101,6 +109,7 @@ public abstract class Shape {
 	 * @param dx int difference in the width
 	 * @param dy int difference in the height
 	 */
+
 	public void expand(Graphics g, Direction direction, int dx, int dy){
 		if ( canResize ){
 			erase(g);

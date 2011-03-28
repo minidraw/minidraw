@@ -37,6 +37,7 @@ public class DrawingCanvas extends JComponent {
 	protected Color penColor = Color.black;
 	protected Tool currentTool;
 	protected ShapeList drawnObjects;
+	protected boolean filled = false;
 
 	/****< Constructor >*********************************************************/
 	/**
@@ -231,5 +232,14 @@ public class DrawingCanvas extends JComponent {
 		}
 		repaint();
 	}
+
+	public void setFilled() {
+		filled = !filled;
+	}
+	
+	public boolean getFilled(){
+		return filled;
+	}
+	
 	
 }// end public class DrawingCanvas extends JComponent

@@ -91,6 +91,7 @@ public class LineShape extends TwoEndShape {
 		if ( selected ) drawBounds(g);
 	}
 
+
 	@Override
 	public void redraw(Graphics g, Color c) {
 		if ( c != null ) outlineColor = c;

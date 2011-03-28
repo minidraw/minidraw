@@ -8,9 +8,11 @@ import java.awt.Graphics;
  */
 public class OvalShape extends TwoEndShape {
 	
+
 	public OvalShape(Color c) {
 		super(c);
 	}
+
 
 /* (non-Javadoc)
    * 
@@ -44,8 +46,13 @@ public class OvalShape extends TwoEndShape {
       shapeHeight = (y0-y1)+1;
     }
     bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-    g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
-    if ( selected ) drawBounds(g);
+    if (canvas.getFilled() == true){
+		g.fillOval(shapeX, shapeY, shapeWidth, shapeHeight);
+		setFilled(true);
+	}
+	else{
+		g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+	}    if ( selected ) drawBounds(g);
 }
   
   public void drawShape(Graphics g, int x, int y, int width, int height){
@@ -55,8 +62,12 @@ public class OvalShape extends TwoEndShape {
 	  shapeWidth = width;
 	  shapeHeight = height;
 	  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-	  g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
-	  if ( selected ) drawBounds(g);
+	  if (getFilled() == true){
+			g.fillOval(shapeX, shapeY, shapeWidth, shapeHeight);
+		}
+		else{
+			g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+		}	  if ( selected ) drawBounds(g);
   }
   
   /* (non-Javadoc)
@@ -83,7 +94,12 @@ public class OvalShape extends TwoEndShape {
       shapeY = y1;
       shapeHeight = (y0-y1)+1;
     }
-    g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
-  }
+    if (getFilled() == true){
+		g.fillOval(shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+	else{
+		g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+	}
+   }
 
 }// end public class OvalShape extends Tool

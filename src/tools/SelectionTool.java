@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import tools.shapes.Shape;
+
 import util.Direction;
 
 import app.DrawingCanvas;
@@ -23,6 +24,7 @@ public class SelectionTool extends Tool {
 	private enum State { MOVING, RESIZING };
 	protected State state;
 	protected DrawingCanvas canvas;
+
 	protected Point clickValue;
 	protected Shape currentShape;
 	protected Direction direction;
@@ -34,9 +36,10 @@ public class SelectionTool extends Tool {
 		else
 			throw new IllegalArgumentException();
 	}
-	
+
 	/* (non-Javadoc)
 	 * 
+
 	 * Press to enter selection state
 	 */
 	public void mousePressed(MouseEvent e){
@@ -52,7 +55,8 @@ public class SelectionTool extends Tool {
 		iBGraphics.setXORMode(Color.lightGray);
 		iBGraphics.setColor(Color.white);
 	}
-	
+
+
 	/* (non-Javadoc)
 	 * 
 	 * Drags the selected shapes
@@ -83,11 +87,11 @@ public class SelectionTool extends Tool {
 				shape.redraw(iBGraphics, dx, dy);
 			}
 		}
-		// update offset
+// update offset
 		clickValue = e.getPoint();
 		canvas.repaint();
 	}
-	
+
 	public void mouseReleased(MouseEvent e){
 		Shape selectedShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
@@ -96,6 +100,7 @@ public class SelectionTool extends Tool {
 	    Vector<Shape> shapes = canvas.getDrawnShapes().allSelected();
 	   
 	    for( Shape shape : shapes ){
+	    	shape.setFilled(canvas.getFilled());
 	    	shape.redraw(iBGraphics, shape.outlineColor);
 	    }
 	    

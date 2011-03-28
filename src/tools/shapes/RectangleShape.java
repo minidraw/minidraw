@@ -13,6 +13,7 @@ public class RectangleShape extends TwoEndShape {
 		super(c);
 	}
 
+
 	/* (non-Javadoc)
 	 * 
 	 * Defines how to draw the rectangle with corners at the starting and ending
@@ -35,6 +36,7 @@ public class RectangleShape extends TwoEndShape {
 			shapeWidth = (x0-x1)+1;
 		}
 
+
 		// find smallest y coordinate and calculate height
 		if (y0 <= y1) {
 			shapeY = y0;
@@ -45,10 +47,17 @@ public class RectangleShape extends TwoEndShape {
 			shapeHeight = (y0-y1)+1;
 		}
 
+
 		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-		g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
-		if ( selected ) drawBounds(g);
+		if (canvas.getFilled() == true){
+			g.fillRect(shapeX, shapeY, shapeWidth, shapeHeight);
+			setFilled(true);
+		}
+		else{
+			g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+		}		if ( selected ) drawBounds(g);
 	}
+
 
 	/* (non-Javadoc)
 	 * 
@@ -86,11 +95,16 @@ public class RectangleShape extends TwoEndShape {
 		shapeWidth = width;
 		shapeHeight = height;
 		bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
-		g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
-		if ( selected ) drawBounds(g);
+		if (canvas.getFilled() == true){
+			g.fillRect(shapeX, shapeY, shapeWidth, shapeHeight);
+			setFilled(true);
+		}
+		else{
+			g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+		}		if ( selected ) drawBounds(g);
 	}
 
-	protected void drawBounds(Graphics g){
+	public void drawBounds(Graphics g){
 		g.setColor(Color.BLACK);
 		g.fillRect(bounds.topLeft.x, bounds.topLeft.y, bounds.topLeft.width, bounds.topLeft.height);
 		g.fillRect(bounds.topRight.x, bounds.topRight.y, bounds.topRight.width, bounds.topRight.height);
