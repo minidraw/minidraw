@@ -34,11 +34,13 @@ public class TextShape extends Shape{
 	}
 	
 	  public void redraw(Graphics g, int x, int y){
+		  g.setColor(outlineColor);
 		  shapeX = shapeX+x;
 		  shapeY = shapeY+y;
 		  erase(g);
 		  bounds.update(shapeX, shapeY, bounds.getWidth(), bounds.getHeight());
 		  g.drawString(text, shapeX+3, shapeY+19);
+		  g.setColor(canvas.getpenColor());
 		  if ( selected ) drawBounds(g);
 	  }
 

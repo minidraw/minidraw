@@ -88,6 +88,7 @@ public void redraw(Graphics g, Color c) {
 }
 
 public void redraw(Graphics g, int x, int y){
+	g.setColor(outlineColor);
 	shapeX += x;
 	shapeY += y;
 	lineEndX += x;
@@ -95,6 +96,7 @@ public void redraw(Graphics g, int x, int y){
 	erase(g);
 	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 	g.drawLine(shapeX, shapeY, lineEndX, lineEndY);
+	g.setColor(canvas.getpenColor());
 	if ( selected ) drawBounds(g);
 }
 }// end public class LineShape extends TwoEndShape

@@ -70,6 +70,7 @@ public class FreehandShape extends Shape {
 	}
 	
 	  public void redraw(Graphics g, int x, int y){
+		  g.setColor(outlineColor);
 		  shapeX = shapeX+x;
 		  shapeY = shapeY+y;
 		  erase(g);
@@ -81,6 +82,7 @@ public class FreehandShape extends Shape {
 			  currPoint = points.get(i);
 			  draw(g, currPoint.x, currPoint.y, points.get(i-1).x, points.get(i-1).y);
 		  }
+		  g.setColor(canvas.getpenColor());
 		  if ( selected ) drawBounds(g);
 	  }
 

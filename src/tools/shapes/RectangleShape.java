@@ -86,20 +86,22 @@ public void redraw(Graphics g, Color c) {
 }
 
 public void redraw(Graphics g, int x, int y){
+	g.setColor(outlineColor);
 	shapeX = shapeX+x;
 	shapeY = shapeY+y;
 	erase(g);
 	bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 	g.drawRect(shapeX, shapeY, shapeWidth, shapeHeight);
+	g.setColor(canvas.getpenColor());
 	if ( selected ) drawBounds(g);
 }
 
 protected void drawBounds(Graphics g){
 	g.setColor(Color.BLACK);
-	g.fillRect(bounds.getX()-1, bounds.getY()-1,4,4);
-	g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()-1,4,4);
-	g.fillRect(bounds.getX()-1, bounds.getY()+bounds.getHeight()-1,4,4);
-	g.fillRect(bounds.getX()+bounds.getWidth()-1, bounds.getY()+bounds.getHeight()-1,4,4);
+	g.fillRect(bounds.topLeft.x, bounds.topLeft.y, bounds.topLeft.width, bounds.topLeft.height);
+	g.fillRect(bounds.topRight.x, bounds.topRight.y, bounds.topRight.width, bounds.topRight.height);
+	g.fillRect(bounds.botLeft.x, bounds.botLeft.y, bounds.botLeft.width, bounds.botLeft.height);
+	g.fillRect(bounds.botRight.x, bounds.botRight.y, bounds.botRight.width, bounds.botLeft.height);
 	g.setColor(canvas.getpenColor());
 }
 }// end public class RectangleShape extends TwoEndShape

@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import tools.shapes.Shape;
+import util.Direction;
 
 import app.DrawingCanvas;
 
@@ -19,10 +20,12 @@ import app.DrawingCanvas;
  * deselected.
  */
 public class SelectionTool extends Tool {
-	private enum State { DRAGGED };
+	private enum State { MOVING, RESIZING };
 	protected State state;
 	protected DrawingCanvas canvas;
 	protected Point clickValue;
+	protected Shape currentShape;
+	protected Direction direction;
 
 	/****< Constructor >*********************************************************/
 	public SelectionTool(DrawingCanvas c){
@@ -37,7 +40,17 @@ public class SelectionTool extends Tool {
 	 * Press to enter selection state
 	 */
 	public void mousePressed(MouseEvent e){
+		Graphics iBGraphics = canvas.getimageBufferGraphics();
+		
 		clickValue = e.getPoint();
+		currentShape = canvas.objectAt(e.getPoint().x, e.getPoint().y);
+		if ( currentShape != null ){
+			if ( ( direction = currentShape.getBounds().containsInOuterBounds(e.getPoint().x+5, e.getPoint().y+5)) != null ){
+				state = State.RESIZING;
+			}
+		}
+		iBGraphics.setXORMode(Color.lightGray);
+		iBGraphics.setColor(Color.white);
 	}
 	
 	/* (non-Javadoc)
@@ -45,28 +58,33 @@ public class SelectionTool extends Tool {
 	 * Drags the selected shapes
 	 */
 	public void mouseDragged(MouseEvent e){
-		state = State.DRAGGED;
+		state = ( state == null ) ? State.MOVING : state;  // Update to moving if not resizing
 		Graphics iBGraphics = canvas.getimageBufferGraphics();
 		Vector<Shape> shapes = canvas.getDrawnShapes().allSelected();
-		//shapes.add(canvas.objectAt(e.getPoint().x, e.getPoint().y));
-		
-		for ( Shape shape : shapes ){
-			shape.redraw(iBGraphics, 0,0);
-			int shape_x = shape.getBounds().getX();
-			int shape_y = shape.getBounds().getY();
-			// {x,y}_offset: the offset from the (x,y) of the shape and the source of the click
-			int x_offset = clickValue.x - shape_x;
-			int y_offset = clickValue.y - shape_y;
-			// d{x,y}: the distance the shape moves from the offset
-			int dx = e.getPoint().x - (shape_x+x_offset);
-			int dy = e.getPoint().y - (shape_y+y_offset);
-			
-			shape.redraw(iBGraphics, dx, dy);
+		//shapes.add(currentShape);  // If we want to be able to move when not selected
+
+		if ( state == State.RESIZING ){
+			// Grab the height and width dy, dx
+			int dx = clickValue.x - e.getX();
+			int dy = clickValue.y - e.getY();
+			currentShape.expand(iBGraphics, direction, dx, dy);
+		} else {
+			for ( Shape shape : shapes ){
+				shape.redraw(iBGraphics, 0,0);
+				int shape_x = shape.getBounds().getX();
+				int shape_y = shape.getBounds().getY();
+				// {x,y}_offset: the offset from the (x,y) of the shape and the source of the click
+				int x_offset = clickValue.x - shape_x;
+				int y_offset = clickValue.y - shape_y;
+				// d{x,y}: the distance the shape moves from the offset
+				int dx = e.getPoint().x - (shape_x+x_offset);
+				int dy = e.getPoint().y - (shape_y+y_offset);
+				
+				shape.redraw(iBGraphics, dx, dy);
+			}
 		}
-		
 		// update offset
 		clickValue = e.getPoint();
-		
 		canvas.repaint();
 	}
 	
@@ -87,14 +105,13 @@ public class SelectionTool extends Tool {
 					selectedShape.select(iBGraphics, true);
 				else
 					selectedShape.select(iBGraphics, false);
-				iBGraphics.setXORMode(Color.lightGray);
-				iBGraphics.setColor(Color.white);
 			} else {
 				canvas.setcurrentTool(this);
 			}
 	    }
 	    
 	    state = null;
+	    currentShape = null; // Since the selection tool is a one use thing, no need to keep it
 	    canvas.repaint();
 	}
 }

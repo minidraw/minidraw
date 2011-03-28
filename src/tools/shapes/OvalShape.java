@@ -45,6 +45,7 @@ public OvalShape(Color c) {
     }
     bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
     g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+    if ( selected ) drawBounds(g);
 }
   
   public void redraw(Graphics g, Color c){
@@ -55,11 +56,13 @@ public OvalShape(Color c) {
   }
   
   public void redraw(Graphics g, int x, int y){
+	  g.setColor(outlineColor);
 	  shapeX = shapeX+x;
 	  shapeY = shapeY+y;
 	  erase(g);
 	  bounds.update(shapeX, shapeY, shapeWidth, shapeHeight);
 	  g.drawOval(shapeX, shapeY, shapeWidth, shapeHeight);
+	  g.setColor(canvas.getpenColor());
 	  if ( selected ) drawBounds(g);
   }
   
